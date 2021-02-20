@@ -8,6 +8,12 @@ namespace Unit
         public int unitLevel;
         
         public int damage;
+        public int magicDamage;
+        
+        public int strikeCoefficient;
+        public int waterCoefficient;
+        public int streamCoefficient;
+        public int fireCoefficient;
         
         public int maxHP;
         public int currentHP;
@@ -29,6 +35,22 @@ namespace Unit
             {
                 currentHP = maxHP;
             }
+        }
+
+        public void SetUnit(string name, int dmg, int magicDmg, int maxHp, int currHp,int strikec, int waterc, int streamc, int firec)
+        {
+            unitName = name;
+            damage = dmg;
+            magicDamage = magicDmg;
+        
+            strikeCoefficient = strikec;
+            waterCoefficient = waterc;
+            streamCoefficient = streamc;
+            fireCoefficient = firec;
+        
+            maxHP = maxHp;
+            currentHP = currHp;
+            
         }
         
         
