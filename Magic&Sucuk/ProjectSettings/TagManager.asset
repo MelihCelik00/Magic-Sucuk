@@ -9,6 +9,8 @@ TagManager:
   - wholivesee
   - karladams
   - pinkcloyd
+  - playerHUD
+  - enemyHUD
   layers:
   - Default
   - TransparentFX
