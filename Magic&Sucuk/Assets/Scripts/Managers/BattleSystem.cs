@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using Unit;
+
 
 public enum BattleState { START, FIRST_PLAYERTURN, SECOND_PLAYERTURN, THIRD_PLAYERTURN, FOURTHPLAYER_TURN, ENEMYTURN, WON, LOST }
 
@@ -21,7 +21,7 @@ namespace Managers
         public Transform enemyBattleStation;
 
         // Primary Unit object declarations
-        public BalancedClass firstPlayer;
+        public Unit.BalancedClass firstPlayer;
         public Unit.Unit secondPlayer;
         public Unit.Unit thirdPlayer;
         public Unit.Unit fourthPlayer;
@@ -34,7 +34,7 @@ namespace Managers
         
         public BattleState state;
 
-        public Skills skills;
+        public Unit.Skills skills;
         private void Start()
         {
             state = BattleState.START;
@@ -143,20 +143,27 @@ namespace Managers
                 if (Input.GetKey(KeyCode.A)) // Guard
                 {
                     skills.Guard(firstPlayer.unit);
-                }else if (Input.GetKey(KeyCode.S)) // 
+                }
+                else if (Input.GetKey(KeyCode.S)) // Wind
                 {
-                    
-                }else if (Input.GetKey(KeyCode.D))
+                    skills.WindStrike(firstPlayer.unit);
+                }
+                else if (Input.GetKey(KeyCode.D)) // Stream 
                 {
-                    
-                }else if (Input.GetKey(KeyCode.F))
+                    skills.StreamStrike(firstPlayer.unit);
+                }
+                else if (Input.GetKey(KeyCode.F)) // Expose
                 {
-                    
-                }else if (Input.GetKey(KeyCode.G))
+                    skills.Expose(firstPlayer.unit);
+                }
+                else if (Input.GetKey(KeyCode.G)) // Attack Buff
+                {
+                    skills.AttackBuff(firstPlayer.unit);
+                }
+                else
                 {
                     
                 }
-
             }
         }
 

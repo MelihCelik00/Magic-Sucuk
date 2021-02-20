@@ -6,25 +6,25 @@ namespace Unit
     {
         
         // Physical Hit
-        public void PhysicalStrike(Unit unit, int dmg)
+        public void PhysicalStrike(Unit unit)
         {
-            unit.TakeDamage(dmg);
+            unit.TakeDamage(unit.damage);
         }
         
         // Magical Damages
-        public void WaterStrike(Unit unit, int magicDmg)
+        public void WaterStrike(Unit unit)
         {
-            unit.TakeDamage(magicDmg);
+            unit.TakeDamage(unit.magicDamage);
         }
 
-        public void WindStrike(Unit unit, int magicDmg)
+        public void WindStrike(Unit unit)
         {
-            unit.TakeDamage(magicDmg);
+            unit.TakeDamage(unit.magicDamage);
         }
 
-        public void StreamStrike(Unit unit, int magicDmg)
+        public void StreamStrike(Unit unit)
         {
-            unit.TakeDamage(magicDmg);
+            unit.TakeDamage(unit.magicDamage);
         }
         
         // Deffensive
