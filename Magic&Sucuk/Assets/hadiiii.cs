@@ -1,13 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class hadiiii : MonoBehaviour
 {
+    public GameObject adana;
+    public GameObject bursa;
+    public GameObject ceyhan;
+    public GameObject denizli;
     public GameObject at;
     public GameObject havalikorna;
     public GameObject madanadrak;
     public GameObject zombi;
+    public GameObject devambutonu;
     int secimsirasi = 0;
     Vector3 birincisira;
     Vector3 ikincisira;
@@ -17,13 +23,16 @@ public class hadiiii : MonoBehaviour
     bool havalikornaatandi = false;
     bool madanadrakatandi = false;
     bool zombiatandi = false;
+ 
 
     private void Start()
     {
-        birincisira = new Vector3(-650, -250, 0);
-        ikincisira = new Vector3(-200, -250, 0);
-        ucuncusira = new Vector3(300, -250, 0);
-        dorduncusira = new Vector3(750, -250, 0);
+        birincisira = adana.transform.position;
+        ikincisira = bursa.transform.position;
+        ucuncusira = ceyhan.transform.position;
+        dorduncusira = denizli.transform.position;
+
+
     }
     public void atsirasi()
     {
@@ -39,6 +48,7 @@ public class hadiiii : MonoBehaviour
             at.transform.position = birincisira;
             secimsirasi++;
             atatandi = !atatandi;
+            PlayerPrefs.SetInt("atadam", 1);
         }
         else if ( secimsirasi <2)
         {
@@ -49,6 +59,7 @@ public class hadiiii : MonoBehaviour
             at.transform.position = ikincisira;
             secimsirasi++;
             atatandi = !atatandi;
+            PlayerPrefs.SetInt("atadam", 2);
         }
         else if (secimsirasi < 3)
         {
@@ -59,6 +70,7 @@ public class hadiiii : MonoBehaviour
             at.transform.position = ucuncusira;
             secimsirasi++;
             atatandi = !atatandi;
+            PlayerPrefs.SetInt("atadam", 3);
         }
 
       
@@ -77,6 +89,7 @@ public class hadiiii : MonoBehaviour
             havalikorna.transform.position = birincisira;
             secimsirasi++;
             havalikornaatandi = !havalikornaatandi;
+            PlayerPrefs.SetInt("havalikorna", 1);
         }
         else if (secimsirasi < 2)
         {
@@ -87,6 +100,7 @@ public class hadiiii : MonoBehaviour
             havalikorna.transform.position = ikincisira;
             secimsirasi++;
             havalikornaatandi = !havalikornaatandi;
+            PlayerPrefs.SetInt("havailkorna", 2);
         }
         else if (secimsirasi < 3)
         {
@@ -97,6 +111,7 @@ public class hadiiii : MonoBehaviour
             havalikorna.transform.position = ucuncusira;
             secimsirasi++;
             havalikornaatandi = !havalikornaatandi;
+            PlayerPrefs.SetInt("havalikorna", 3);
         }
 
 
@@ -115,6 +130,7 @@ public class hadiiii : MonoBehaviour
             madanadrak.transform.position = birincisira;
             secimsirasi++;
             madanadrakatandi = !madanadrakatandi;
+            PlayerPrefs.SetInt("madanadrak", 1);
         }
         else if (secimsirasi < 2)
         {
@@ -125,6 +141,7 @@ public class hadiiii : MonoBehaviour
             madanadrak.transform.position = ikincisira;
             secimsirasi++;
             madanadrakatandi = !madanadrakatandi;
+            PlayerPrefs.SetInt("madanadrak", 2);
         }
         else if (secimsirasi < 3)
         {
@@ -135,6 +152,7 @@ public class hadiiii : MonoBehaviour
             madanadrak.transform.position = ucuncusira;
             secimsirasi++;
             madanadrakatandi = !madanadrakatandi;
+            PlayerPrefs.SetInt("madanadrak", 3);
         }
 
 
@@ -153,6 +171,7 @@ public class hadiiii : MonoBehaviour
             zombi.transform.position = birincisira;
             secimsirasi++;
             zombiatandi = !zombiatandi;
+            PlayerPrefs.SetInt("zombi", 1);
         }
         else if (secimsirasi < 2)
         {
@@ -163,6 +182,7 @@ public class hadiiii : MonoBehaviour
             zombi.transform.position = ikincisira;
             secimsirasi++;
             zombiatandi = !zombiatandi;
+            PlayerPrefs.SetInt("zombi", 2);
         }
         else if (secimsirasi < 3)
         {
@@ -173,13 +193,26 @@ public class hadiiii : MonoBehaviour
             zombi.transform.position = ucuncusira;
             secimsirasi++;
             zombiatandi = !zombiatandi;
+            PlayerPrefs.SetInt("zombi", 3);
         }
 
 
     }
+
+
+    public void sonrakisahne()
+    {
+
+        SceneManager.LoadScene("TurnBasedTestScene");
+
+
+    }
+
+
+
     void Update()
     {
-        if (secimsirasi == 3)
+        if (secimsirasi == 3 || secimsirasi == 4 )
         {
             if (atatandi)
             {
@@ -189,7 +222,7 @@ public class hadiiii : MonoBehaviour
                     {
                         if (zombiatandi)
                         {
-                            //sonraki sahneye geçme komutu
+                            devambutonu.SetActive(true);
 
 
 
@@ -200,6 +233,9 @@ public class hadiiii : MonoBehaviour
                         {
                             zombi.SetActive(true);
                             zombi.transform.position= dorduncusira;
+                            PlayerPrefs.SetInt("zombi", 4);
+                            devambutonu.SetActive(true);
+                        
                         }
 
 
@@ -209,6 +245,7 @@ public class hadiiii : MonoBehaviour
 
                         madanadrak.SetActive(true);
                         madanadrak.transform.position = dorduncusira;
+                        PlayerPrefs.SetInt("madanadrak", 4);
                     }
 
                 }
@@ -217,6 +254,7 @@ public class hadiiii : MonoBehaviour
                 {
                     havalikorna.SetActive(true);
                     havalikorna.transform.position = dorduncusira;
+                    PlayerPrefs.SetInt("havalikorna", 4);
                 }
 
 
@@ -226,7 +264,7 @@ public class hadiiii : MonoBehaviour
             {
                 at.SetActive(true);
                 at.transform.position = dorduncusira;
-
+                PlayerPrefs.SetInt("atadam", 4);
             }
 
         }
