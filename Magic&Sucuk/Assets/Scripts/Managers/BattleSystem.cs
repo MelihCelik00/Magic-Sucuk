@@ -21,7 +21,7 @@ namespace Managers
         public Transform enemyBattleStation;
 
         // Primary Unit object declarations
-        public Unit.Unit firstPlayer;
+        public BalancedClass firstPlayer;
         public Unit.Unit secondPlayer;
         public Unit.Unit thirdPlayer;
         public Unit.Unit fourthPlayer;
@@ -33,6 +33,8 @@ namespace Managers
         public BattleHUD enemyHUD;
         
         public BattleState state;
+
+        public Skills skills;
         private void Start()
         {
             state = BattleState.START;
@@ -42,26 +44,26 @@ namespace Managers
         private IEnumerator SetupBattle()
         {
             GameObject playerGO = Instantiate(havaiPrefab, playerBattleStation);
-            firstPlayer = playerGO.GetComponent<Unit.Unit>();
+            firstPlayer = playerGO.GetComponent<Unit.BalancedClass>();
             
             GameObject enemyGO = Instantiate(pinkCloydPrefab, enemyBattleStation);
             pinkCloyd = enemyGO.GetComponent<Unit.Unit>();
 
             dialogueText.text = "A wild " + pinkCloyd.unitName + " approaches...";
             
-            playerHUD.SetHUD(playerUnit);
-            enemyHUD.SetHUD(enemyUnit);
+            //playerHUD.SetHUD(playerUnit);
+            //enemyHUD.SetHUD(enemyUnit);
 
             yield return new WaitForSeconds(2f);
 
             state = BattleState.FIRST_PLAYERTURN;
-            PlayerTurn();
+            FirstPlayerTurn();
         }
 
         IEnumerator PlayerAttack()
         {
             // Damage the enemy
-            bool isDead = pinkCloyd.TakeDamage(firstPlayer.damage);
+            bool isDead = pinkCloyd.TakeDamage(firstPlayer.unit.damage);
             
             enemyHUD.SetHP(pinkCloyd.currentHP);
             dialogueText.text = "The attack is successful!";
@@ -86,8 +88,8 @@ namespace Managers
 
         IEnumerator PlayerHeal()
         {
-            firstPlayer.Heal(5);
-            playerHUD.SetHP(firstPlayer.currentHP);
+            firstPlayer.unit.Heal(5);
+            playerHUD.SetHP(firstPlayer.unit.currentHP);
             dialogueText.text = "You feel renewed strength!";
             
             yield return new WaitForSeconds(2f);
@@ -103,9 +105,9 @@ namespace Managers
             
             yield return new WaitForSeconds(1f);
 
-            bool isDead = firstPlayer.TakeDamage(pinkCloyd.damage);
+            bool isDead = firstPlayer.unit.TakeDamage(pinkCloyd.damage);
             
-            playerHUD.SetHP(firstPlayer.currentHP);
+            playerHUD.SetHP(firstPlayer.unit.currentHP);
             
             yield return new WaitForSeconds(1f);
 
@@ -117,7 +119,7 @@ namespace Managers
             else
             {
                 state = BattleState.FIRST_PLAYERTURN;
-                PlayerTurn();
+                FirstPlayerTurn();
             }
         }
 
@@ -132,13 +134,29 @@ namespace Managers
             }
         }
         
-        void PlayerTurn()
+        void FirstPlayerTurn() ////////////////////////////////////////
         {
-            dialogueText.text = "Choose an action";
+            dialogueText.text = "Choose an action for " + firstPlayer.unit.unitName;
 
             if (state == BattleState.FIRST_PLAYERTURN)
             {
-                
+                if (Input.GetKey(KeyCode.A)) // Guard
+                {
+                    skills.Guard(firstPlayer.unit);
+                }else if (Input.GetKey(KeyCode.S)) // 
+                {
+                    
+                }else if (Input.GetKey(KeyCode.D))
+                {
+                    
+                }else if (Input.GetKey(KeyCode.F))
+                {
+                    
+                }else if (Input.GetKey(KeyCode.G))
+                {
+                    
+                }
+
             }
         }
 

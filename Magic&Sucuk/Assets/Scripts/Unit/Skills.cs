@@ -22,7 +22,7 @@ namespace Unit
             unit.TakeDamage(magicDmg);
         }
 
-        public void FireStrike(Unit unit, int magicDmg)
+        public void StreamStrike(Unit unit, int magicDmg)
         {
             unit.TakeDamage(magicDmg);
         }

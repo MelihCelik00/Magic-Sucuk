@@ -12,7 +12,7 @@ namespace Unit
         public int strikeCoefficient;
         public int waterCoefficient;
         public int streamCoefficient;
-        public int fireCoefficient;
+        public int windCoefficient;
         
         public int maxHP;
         public int currentHP;
