@@ -1,18 +1,21 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Managers;
 using UnityEngine;
 
-public class BalancedClass : MonoBehaviour
+namespace Unit
 {
-    // Start is called before the first frame update
-    void Start()
+    public class BalancedClass : MonoBehaviour
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public Unit unit;
+        public BattleHUD playerHUD;
+        private void Start()
+        {
+            unit = GameObject.FindGameObjectWithTag("havai").GetComponent<Unit>();
+            unit.SetUnit("Hava-i",0,15, 100, 100,3,1,1,2);
+            playerHUD = GameObject.FindGameObjectWithTag("playerHUD").GetComponent<BattleHUD>();
+            playerHUD.SetHUD(unit);
+        }
     }
 }

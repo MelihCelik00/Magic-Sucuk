@@ -40,8 +40,8 @@ namespace Managers
 
             dialogueText.text = "A wild " + enemyUnit.unitName + " approaches...";
             
-            playerHUD.SetHUD(playerUnit);
-            enemyHUD.SetHUD(enemyUnit);
+            //playerHUD.SetHUD(playerUnit);
+            //enemyHUD.SetHUD(enemyUnit);
 
             yield return new WaitForSeconds(2f);
 

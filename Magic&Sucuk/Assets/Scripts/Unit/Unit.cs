@@ -20,7 +20,7 @@ namespace Unit
 
         public bool TakeDamage(int dmg)
         {
-            currentHP -= dmg;
+            currentHP -= dmg*strikeCoefficient;
 
             if (currentHP <= 0)
                 return true;
@@ -35,6 +35,14 @@ namespace Unit
             {
                 currentHP = maxHP;
             }
+        }
+        
+        public bool ProcessDeath(Unit unit)
+        {
+            if (unit.currentHP <= 0)
+                return true;
+            else
+                return false;
         }
 
         public void SetUnit(string name, int dmg, int magicDmg, int maxHp, int currHp,int strikec, int waterc, int streamc, int firec)

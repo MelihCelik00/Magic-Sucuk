@@ -6,9 +6,9 @@ namespace Unit
     {
         
         // Physical Hit
-        public void PhysicalDamage()
+        public void PhysicalStrike(Unit unit, int dmg)
         {
-            
+               unit.TakeDamage(dmg);
         }
         
         // Magical Damages

@@ -91,6 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 353135545473857980}
   - component: {fileID: 2293759683928893282}
+  - component: {fileID: -4622674243424858699}
   m_Layer: 0
   m_Name: Player
   m_TagString: havai
@@ -134,4 +135,18 @@ MonoBehaviour:
   streamCoefficient: 0
   fireCoefficient: 0
   maxHP: 0
-  currentHP: 10
+  currentHP: 0
+--- !u!114 &-4622674243424858699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 353135545473857983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95be142fb7a9e421bbe1ceb3300f40bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unit: {fileID: 2293759683928893282}
+  playerHUD: {fileID: 0}
