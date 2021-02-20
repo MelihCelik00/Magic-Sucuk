@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Managers
@@ -8,7 +9,7 @@ namespace Managers
         public Text nameText;
         public Text levelText;
         public Slider hpSlider;
-
+        
         public void SetHUD(Unit.Unit unit)
         {
             nameText.text = unit.unitName;

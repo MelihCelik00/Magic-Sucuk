@@ -6,62 +6,69 @@ namespace Unit
     {
         
         // Physical Hit
-        public void PhysicalDamage()
+        public void PhysicalStrike(Unit unit, int dmg)
         {
-            
+            unit.TakeDamage(dmg);
         }
         
         // Magical Damages
-        public void WaterStrike()
+        public void WaterStrike(Unit unit, int magicDmg)
         {
-            
+            unit.TakeDamage(magicDmg);
         }
 
-        public void WindStrike()
+        public void WindStrike(Unit unit, int magicDmg)
         {
-            
+            unit.TakeDamage(magicDmg);
         }
 
-        public void FireStrike()
+        public void FireStrike(Unit unit, int magicDmg)
         {
-            
+            unit.TakeDamage(magicDmg);
         }
         
         // Deffensive
-        public void Guard()
+        public void Guard(Unit unit)
         {
-            
+            unit.CoefficientBuff();
         }
-        
+
+        public void Provoke()
+        {
+            // saldiriyi ustune cekecek
+        }
+
         // Support
-        public void Heal()
+        public void HealByTwenty(Unit unit)
         {
+            var amount = (unit.maxHP - unit.currentHP)*20/100;
+            unit.Heal(amount);
+        }
+
+        public void CritBuff(Unit unit)
+        {
+            unit.SetCrit(); // for two rounds
+        }
+
+        public void AttackBuff(Unit unit)
+        {
+            unit.IncreaseAttackDmg();
+        }
+
+        public void Investigate(Unit unit)
+        {
+            // Dialog paneline bastır
             
         }
 
-        public void CritHit()
+        public void Expose(Unit unit)
         {
-            
+            // Çarpanların 1ini random 1 arttır
         }
 
-        public void AttackBuff()
+        public void ZombieBite(Unit unit)
         {
-            
-        }
-
-        public void Investigate()
-        {
-            
-        }
-
-        public void Expose()
-        {
-            
-        }
-
-        public void ZombieBite()
-        {
-            
+            // Revive dead one with %50 health + color that character to green
         }
         
     }

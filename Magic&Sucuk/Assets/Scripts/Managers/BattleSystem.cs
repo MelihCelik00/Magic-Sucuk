@@ -2,21 +2,30 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using Unit;
 
-public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
+public enum BattleState { START, FIRST_PLAYERTURN, SECOND_PLAYERTURN, THIRD_PLAYERTURN, FOURTHPLAYER_TURN, ENEMYTURN, WON, LOST }
 
 namespace Managers
 {
     public class BattleSystem : MonoBehaviour
     {
-        public GameObject playerPrefab;
-        public GameObject enemyPrefab;
+
+        public GameObject havaiPrefab;
+        public GameObject pinkCloydPrefab;
+        public GameObject _horsapienPrefab;
+        public GameObject _wholiveseePrefab;
+        public GameObject _karladamsPrefab;
 
         public Transform playerBattleStation;
         public Transform enemyBattleStation;
 
-        private Unit.Unit playerUnit;
-        private Unit.Unit enemyUnit;
+        // Primary Unit object declarations
+        public Unit.Unit firstPlayer;
+        public Unit.Unit secondPlayer;
+        public Unit.Unit thirdPlayer;
+        public Unit.Unit fourthPlayer;
+        public Unit.Unit pinkCloyd;
 
         public Text dialogueText;
 
@@ -32,29 +41,29 @@ namespace Managers
 
         private IEnumerator SetupBattle()
         {
-            GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
-            playerUnit = playerGO.GetComponent<Unit.Unit>();
+            GameObject playerGO = Instantiate(havaiPrefab, playerBattleStation);
+            firstPlayer = playerGO.GetComponent<Unit.Unit>();
             
-            GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
-            enemyUnit = enemyGO.GetComponent<Unit.Unit>();
+            GameObject enemyGO = Instantiate(pinkCloydPrefab, enemyBattleStation);
+            pinkCloyd = enemyGO.GetComponent<Unit.Unit>();
 
-            dialogueText.text = "A wild " + enemyUnit.unitName + " approaches...";
+            dialogueText.text = "A wild " + pinkCloyd.unitName + " approaches...";
             
             playerHUD.SetHUD(playerUnit);
             enemyHUD.SetHUD(enemyUnit);
 
             yield return new WaitForSeconds(2f);
 
-            state = BattleState.PLAYERTURN;
+            state = BattleState.FIRST_PLAYERTURN;
             PlayerTurn();
         }
 
         IEnumerator PlayerAttack()
         {
             // Damage the enemy
-            bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
+            bool isDead = pinkCloyd.TakeDamage(firstPlayer.damage);
             
-            enemyHUD.SetHP(enemyUnit.currentHP);
+            enemyHUD.SetHP(pinkCloyd.currentHP);
             dialogueText.text = "The attack is successful!";
                 
             yield return new WaitForSeconds(2f);
@@ -77,8 +86,8 @@ namespace Managers
 
         IEnumerator PlayerHeal()
         {
-            playerUnit.Heal(5);
-            playerHUD.SetHP(playerUnit.currentHP);
+            firstPlayer.Heal(5);
+            playerHUD.SetHP(firstPlayer.currentHP);
             dialogueText.text = "You feel renewed strength!";
             
             yield return new WaitForSeconds(2f);
@@ -90,13 +99,13 @@ namespace Managers
 
         IEnumerator EnemyTurn()
         {
-            dialogueText.text = enemyUnit.unitName + " attacks!";
+            dialogueText.text = pinkCloyd.unitName + " attacks!";
             
             yield return new WaitForSeconds(1f);
 
-            bool isDead = playerUnit.TakeDamage(enemyUnit.damage);
+            bool isDead = firstPlayer.TakeDamage(pinkCloyd.damage);
             
-            playerHUD.SetHP(playerUnit.currentHP);
+            playerHUD.SetHP(firstPlayer.currentHP);
             
             yield return new WaitForSeconds(1f);
 
@@ -107,7 +116,7 @@ namespace Managers
             }
             else
             {
-                state = BattleState.PLAYERTURN;
+                state = BattleState.FIRST_PLAYERTURN;
                 PlayerTurn();
             }
         }
@@ -126,11 +135,16 @@ namespace Managers
         void PlayerTurn()
         {
             dialogueText.text = "Choose an action";
+
+            if (state == BattleState.FIRST_PLAYERTURN)
+            {
+                
+            }
         }
 
         public void OnAttackButton()
         {
-            if (state != BattleState.PLAYERTURN)
+            if (state != BattleState.FIRST_PLAYERTURN)
                 return;
 
             StartCoroutine(PlayerAttack());
@@ -138,7 +152,7 @@ namespace Managers
 
         public void OnHealButton()
         {
-            if (state != BattleState.PLAYERTURN)
+            if (state != BattleState.FIRST_PLAYERTURN)
                 return;
 
             StartCoroutine(PlayerHeal());
