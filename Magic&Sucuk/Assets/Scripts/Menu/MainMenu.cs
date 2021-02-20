@@ -8,9 +8,11 @@ namespace Menu
         public GameObject mainMenu;
         public GameObject htpMenu;
         public GameObject creditsMenu;
-
+        public AudioSource giris, cikis; 
+  
         public void PlayGame()
         {
+            giris.Play();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
 
@@ -22,12 +24,14 @@ namespace Menu
 
         public void Credits()
         {
+            giris.Play();
             mainMenu.SetActive(false);
             creditsMenu.SetActive(true);
         }
         
         public void QuitGame()
         {
+            cikis.Play();
             Application.Quit();
         }
 
