@@ -775,11 +775,16 @@ namespace Managers
 
         IEnumerator SecondPlayerTurn()
         {
+            GameObject backUI = GameObject.FindGameObjectWithTag("atSkillUI");
             dialogueText.text = secondPlayer.unit.unitName + " attacks!";
             playerHUD.SetHUD(secondPlayer.unit);
             yield return new WaitForSeconds(1);
             if (state == BattleState.SECOND_PLAYERTURN)
             {
+                //var transformPosition = secondPlayer.transform.position;
+                //transformPosition.x = backUI.transform.position.x;
+                //secondPlayer.unit.backUI.SetActive(true);
+                
                 choiceTime = true;
                 Debug.Log("SEÇ");
 
@@ -787,29 +792,30 @@ namespace Managers
                 {
                     yield return new WaitForSeconds(1f);
                 }
-                if (choiceA)
+                if (choiceSpace)
                 {
                     secondPlayer.FirstSkill();
                 }
-                else if (choiceS)
+                else if (choiceA)
                 {
                     secondPlayer.SecondSkill(pinkCloyd.unit);
                     Debug.Log("Second choice");
                 }
-                else if (choiceD)
+                else if (choiceS)
                 {
                     secondPlayer.ThirdSkill(pinkCloyd.unit);
                 }
-                else if (choiceF)
+                else if (choiceD)
                 {
                     secondPlayer.FourthSkill();
                 }
-                else if (choiceSpace)
+                else if (choiceF)
                 {
                     secondPlayer.FifthSkill();
                 }
                 enemyHUD.SetHP(pinkCloyd.unit.currentHP);
-
+                //secondPlayer.unit.backUI.SetActive(false);
+                //transformPosition.x = playerBattleStation2.transform.position.x;
                 bool isDead = pinkCloyd.unit.ProcessDeath(pinkCloyd.unit);
                 if (isDead)
                 {

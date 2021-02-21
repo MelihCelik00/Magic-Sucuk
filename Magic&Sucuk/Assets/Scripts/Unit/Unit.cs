@@ -17,6 +17,8 @@ namespace Unit
         public int maxHP;
         public int currentHP;
 
+        public GameObject backUI;
+
         public int crit;
 
         public bool TakeDamage(int dmg)

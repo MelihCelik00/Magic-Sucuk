@@ -12,6 +12,7 @@ TagManager:
   - zombie
   - horsapien
   - kardanadam
+  - atSkillUI
   layers:
   - Default
   - TransparentFX
