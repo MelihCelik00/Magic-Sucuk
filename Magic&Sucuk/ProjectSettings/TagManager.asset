@@ -9,6 +9,7 @@ TagManager:
   - havai
   - pinkcloyd
   - battleManager
+  - zombie
   layers:
   - Default
   - TransparentFX

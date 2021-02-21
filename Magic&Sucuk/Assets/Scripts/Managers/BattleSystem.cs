@@ -14,22 +14,27 @@ namespace Managers
 
         public GameObject havaiPrefab;
         public GameObject pinkCloydPrefab;
-        public GameObject _horsapienPrefab;
-        public GameObject _wholiveseePrefab;
-        public GameObject _karladamsPrefab;
-
-        public Transform playerBattleStation;
+        public GameObject atadamPrefab;
+        public GameObject kardanadamPrefab;
+        public GameObject zombiePrefab;
+        
+        public Transform playerBattleStation1;
+        [SerializeField] public Transform playerBattleStation2;
+        [SerializeField] public Transform playerBattleStation3;
+        [SerializeField] public Transform playerBattleStation4;
         public Transform enemyBattleStation;
 
         private bool key;
         
         // Primary Unit object declarations
         public BalancedClass firstPlayer;
-        public Unit.Unit secondPlayer;
-        public Unit.Unit thirdPlayer;
-        public Unit.Unit fourthPlayer;
+        public TankClass secondPlayer;
+        public DamageClass thirdPlayer;
+        public SupportClass fourthPlayer;
         public BossClass pinkCloyd;
-
+        
+        
+        
         public Text dialogueText;
 
         public BattleHUD playerHUD;
@@ -46,8 +51,6 @@ namespace Managers
         private bool choiceD;
         private bool choiceF;
         private bool choiceG;
-        
-        
         
         private void Start()
         {
@@ -115,11 +118,49 @@ namespace Managers
 
         private IEnumerator SetupBattle()
         {
-            GameObject playerGO = Instantiate(havaiPrefab, playerBattleStation);
-            firstPlayer = playerGO.GetComponent<BalancedClass>();
+            GameObject pinkcloydGO = Instantiate(pinkCloydPrefab, enemyBattleStation);
+            pinkCloyd = pinkcloydGO.GetComponent<BossClass>();
+            /*GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation);
+            firstPlayer = havaiGO.GetComponent<BalancedClass>();
+            */
+            int havai = PlayerPrefs.GetInt("havalikorna");
+            int atadam = PlayerPrefs.GetInt("atadam");
+            int kardanadam = PlayerPrefs.GetInt("madanadrak");
+            int zombi = PlayerPrefs.GetInt("zombi");
             
-            GameObject enemyGO = Instantiate(pinkCloydPrefab, enemyBattleStation);
-            pinkCloyd = enemyGO.GetComponent<BossClass>();
+            int[] arr = { havai, atadam, kardanadam, zombi };
+            Debug.Log("Array: \nHavai: " + arr[0]+ "\nAtadam: "+ arr[1]+"\nMadanadrak: "+ arr[2]+"\nZombi: "+ arr[3]);
+            Array.Sort(arr);
+            
+            if (havai == 1)
+            {
+                GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation1);
+                firstPlayer = havaiGO.GetComponent<BalancedClass>();
+                if (atadam == 2)
+                {
+                    GameObject atGO = Instantiate(atadamPrefab, playerBattleStation2);
+                    secondPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
+                    if (kardanadam == 3)
+                    {
+                        GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation3);
+                        thirdPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+                        
+                        GameObject zombie = Instantiate(zombiePrefab, playerBattleStation4);
+                        fourthPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
+                    }
+                    else if (zombi == 3)
+                    {
+                        GameObject zombie = Instantiate(zombiePrefab, playerBattleStation3);
+                        SupportClass thirdPlayer;
+                        thirdPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
+                        
+                        GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation3);
+                        DamageClass fourthPlayer;
+                        fourthPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+
+                    }
+                }
+            }
 
             skills = GetComponent<Skills>();
 
