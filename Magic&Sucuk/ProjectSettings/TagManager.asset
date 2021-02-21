@@ -10,6 +10,8 @@ TagManager:
   - pinkcloyd
   - battleManager
   - zombie
+  - horsapien
+  - kardanadam
   layers:
   - Default
   - TransparentFX
@@ -19,7 +21,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Character
   - 
   - 
   - 

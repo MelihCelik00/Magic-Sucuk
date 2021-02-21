@@ -13,7 +13,7 @@ namespace Unit
         private void Start()
         {
             unit = GameObject.FindGameObjectWithTag("zombie").GetComponent<Unit>();
-            unit.SetUnit("Wholivesee",0,15, 100, 100,3,1,1,2);
+            unit.SetUnit("Wholivesee",9,20, 120, 120,1,1,2,2);
             playerHUD = GameObject.FindGameObjectWithTag("playerHUD").GetComponent<BattleHUD>();
             playerHUD.SetHUD(unit);
             _battleSystem = GameObject.FindGameObjectWithTag("battleManager").GetComponent<BattleSystem>();
@@ -24,51 +24,49 @@ namespace Unit
             Guard(unit);
         }
 
-        public void SecondSkill(Unit targetUnit) // Heal
+        public void SecondSkill(Unit targetUnit)
         {
-            Debug.Log(targetUnit.unitName);
-            WindStrike(targetUnit, unit.magicDamage);
+            HealByTwenty(unit);
         }
 
-        public void ThirdSkill(Unit targetUnit) // Zombie Bite
+        public void ThirdSkill(Unit targetUnit)
         {
-            StreamStrike(targetUnit, unit.magicDamage);
+            ZombieBite(unit);
         }
 
-        public void FourthSkill() // Water 
+        public void FourthSkill(Unit targetUnit)  
         {
-            Expose(unit);
+            WaterStrike(targetUnit, unit.magicDamage);
         }
 
-        public void FifthSkill() // Strike
+        public void FifthSkill(Unit targetUnit) 
         {
-            AttackBuff(unit);
+            PhysicalStrike(targetUnit, unit.damage);
         }
         
         public void Guard(Unit unit)
         {
             unit.CoefficientBuff();
         }
-        
-        public void WindStrike(Unit unit, int magicDmg)
+
+        public void HealByTwenty(Unit unit)
         {
-            Debug.Log("Winde geldi");
-            unit.TakeDamage(magicDmg * unit.windCoefficient);
+            var amount = (unit.maxHP - unit.currentHP) * 20 / 100;
+            unit.Heal(amount);
         }
-        
-        public void StreamStrike(Unit unit, int magicDmg)
+
+        public void ZombieBite(Unit unit)
         {
-            unit.TakeDamage(magicDmg*unit.streamCoefficient);
+            // Revive dead one with %50 health + color that character to green
         }
-        
-        public void Expose(Unit unit)
+        public void WaterStrike(Unit unit, int magicDmg)
         {
-            // Çarpanların 1ini random 1 arttır
+            unit.TakeDamage(magicDmg * unit.waterCoefficient);
         }
-        
-        public void AttackBuff(Unit unit)
+
+        public void PhysicalStrike(Unit unit, int dmg)
         {
-            unit.IncreaseAttackDmg();
+            unit.TakeDamage(dmg * unit.strikeCoefficient);
         }
     }
 }

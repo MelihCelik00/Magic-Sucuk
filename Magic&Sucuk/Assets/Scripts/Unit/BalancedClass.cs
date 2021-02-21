@@ -16,7 +16,6 @@ namespace Unit
             unit.SetUnit("Hava-i",0,15, 100, 100,3,1,1,2);
             playerHUD = GameObject.FindGameObjectWithTag("playerHUD").GetComponent<BattleHUD>();
             playerHUD.SetHUD(unit);
-            //_skills = GameObject.FindGameObjectWithTag("battleManager").GetComponent<Skills>();
             _battleSystem = GameObject.FindGameObjectWithTag("battleManager").GetComponent<BattleSystem>();
         }
 
@@ -27,7 +26,6 @@ namespace Unit
 
         public void SecondSkill(Unit targetUnit)
         {
-            Debug.Log(targetUnit.unitName);
             WindStrike(targetUnit, unit.magicDamage);
         }
 

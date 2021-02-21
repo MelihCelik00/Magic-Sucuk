@@ -26,7 +26,10 @@ public class yonetici : MonoBehaviour
     bool havalikornaatandi = false;
     bool madanadrakatandi = false;
     bool zombiatandi = false;
-
+    public Button first;
+    public Button second;
+    public Button third;
+    public Button fourth;
     private void Start()
     {
         birincisira = adana.transform.position;
@@ -202,7 +205,7 @@ public class yonetici : MonoBehaviour
 
     public void sonrakisahne()
     {
-        SceneManager.LoadScene("TurnBasedTestScene");
+        SceneManager.LoadScene("BossFight");
 
 
     }
@@ -236,13 +239,28 @@ public class yonetici : MonoBehaviour
 
         if (zombiatandi || atatandi || havalikornaatandi || madanadrakatandi)
         {
-           yenidenbutonu.SetActive(true);
-
+            yenidenbutonu.SetActive(true);
+            
         }
 
-
-
-
+        if (atatandi)
+        {
+            first.GetComponent<Button>().interactable = false;
+        }
+        if (havalikornaatandi)
+        {
+            second.GetComponent<Button>().interactable = false;
+        }
+        if (madanadrakatandi)
+        {
+            third.GetComponent<Button>().interactable = false;
+        }
+        if (zombiatandi)
+        {
+            fourth.GetComponent<Button>().interactable = false;
+        }
+        
+        
         if (secimsirasi == 3 || secimsirasi == 4)
         {
             if (atatandi)
@@ -266,6 +284,7 @@ public class yonetici : MonoBehaviour
                             zombi.transform.position = dorduncusira;
                             PlayerPrefs.SetInt("zombi", 4);
                             devambutonu.SetActive(true);
+                            fourth.GetComponent<Button>().interactable = false;
                         }
 
 
@@ -277,6 +296,7 @@ public class yonetici : MonoBehaviour
                         madanadrak.transform.position = dorduncusira;
                         PlayerPrefs.SetInt("madanadrak", 4);
                         devambutonu.SetActive(true);
+                        third.GetComponent<Button>().interactable = false;
                     }
 
                 }
@@ -287,6 +307,7 @@ public class yonetici : MonoBehaviour
                     havalikorna.transform.position = dorduncusira;
                     PlayerPrefs.SetInt("havalikorna", 4);
                     devambutonu.SetActive(true);
+                    second.GetComponent<Button>().interactable = false;
                 }
 
 
@@ -298,6 +319,7 @@ public class yonetici : MonoBehaviour
                 at.transform.position = dorduncusira;
                 PlayerPrefs.SetInt("atadam", 4);
                 devambutonu.SetActive(true);
+                first.GetComponent<Button>().interactable = false;
             }
 
         }
