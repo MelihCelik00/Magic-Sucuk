@@ -21,7 +21,7 @@ namespace Unit
 
         public bool TakeDamage(int dmg)
         {
-            currentHP -= dmg*strikeCoefficient;
+            currentHP -= dmg;
 
             if (currentHP <= 0)
                 return true;
@@ -46,7 +46,7 @@ namespace Unit
                 return false;
         }
 
-        public void SetUnit(string name, int dmg, int magicDmg, int maxHp, int currHp,int strikec, int waterc, int streamc, int firec)
+        public void SetUnit(string name, int dmg, int magicDmg, int maxHp, int currHp,int strikec, int waterc, int streamc, int windc)
         {
             unitName = name;
             damage = dmg;
@@ -55,7 +55,7 @@ namespace Unit
             strikeCoefficient = strikec;
             waterCoefficient = waterc;
             streamCoefficient = streamc;
-            fireCoefficient = firec;
+            windCoefficient = windc;
         
             maxHP = maxHp;
             currentHP = currHp;
@@ -67,7 +67,7 @@ namespace Unit
             strikeCoefficient--;
             waterCoefficient--;
             streamCoefficient--;
-            fireCoefficient--;
+            windCoefficient--;
         }
 
         public void CoefficientNerf()
@@ -75,7 +75,7 @@ namespace Unit
             strikeCoefficient++;
             waterCoefficient++;
             streamCoefficient++;
-            fireCoefficient++;
+            windCoefficient++;
         }
 
         public void SetCrit()

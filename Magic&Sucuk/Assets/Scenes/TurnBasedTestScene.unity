@@ -2320,7 +2320,7 @@ GameObject:
   - component: {fileID: 2113049333}
   m_Layer: 0
   m_Name: BattleSystemManager
-  m_TagString: Untagged
+  m_TagString: battleManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2369,3 +2369,4 @@ MonoBehaviour:
   playerHUD: {fileID: 2056597817}
   enemyHUD: {fileID: 1609986562}
   state: 0
+  skills: {fileID: 0}

@@ -2,29 +2,30 @@
 
 namespace Unit
 {
-    public class Skills : MonoBehaviour
+    public abstract class Skills : MonoBehaviour
     {
         
         // Physical Hit
-        public void PhysicalStrike(Unit unit, int dmg)
+        public void PhysicalStrike(Unit unit, int dmg) // Target Unit, base damage points
         {
-            unit.TakeDamage(dmg);
+            unit.TakeDamage(dmg*unit.strikeCoefficient);
         }
         
         // Magical Damages
-        public void WaterStrike(Unit unit, int magicDmg)
+        public void WaterStrike(Unit unit,int magicDmg)
         {
-            unit.TakeDamage(magicDmg);
+            unit.TakeDamage(magicDmg*unit.waterCoefficient);
         }
 
         public void WindStrike(Unit unit, int magicDmg)
         {
-            unit.TakeDamage(magicDmg);
+            Debug.Log("Winde geldi");
+            unit.TakeDamage(magicDmg * unit.windCoefficient);
         }
 
         public void StreamStrike(Unit unit, int magicDmg)
         {
-            unit.TakeDamage(magicDmg);
+            unit.TakeDamage(magicDmg*unit.streamCoefficient);
         }
         
         // Deffensive
