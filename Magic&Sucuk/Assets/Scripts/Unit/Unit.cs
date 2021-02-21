@@ -21,7 +21,7 @@ namespace Unit
 
         public bool TakeDamage(int dmg)
         {
-            currentHP -= dmg*strikeCoefficient;
+            currentHP -= dmg;
 
             if (currentHP <= 0)
                 return true;
