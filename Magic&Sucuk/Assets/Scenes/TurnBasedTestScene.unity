@@ -534,6 +534,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 199813211}
   m_CullTransparentMesh: 0
+--- !u!224 &216415708 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1360535796722061701, guid: a03a46253476b5245ad5e397f3bfbf71,
+    type: 3}
+  m_PrefabInstance: {fileID: 175172235}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &232361511
 GameObject:
   m_ObjectHideFlags: 0
@@ -1553,6 +1559,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1341723165}
   m_CullTransparentMesh: 0
+--- !u!224 &1341945891 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1360535797086556022, guid: a03a46253476b5245ad5e397f3bfbf71,
+    type: 3}
+  m_PrefabInstance: {fileID: 175172235}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1399190334
 GameObject:
   m_ObjectHideFlags: 0
@@ -1767,6 +1779,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1519087277}
   m_CullTransparentMesh: 0
+--- !u!224 &1547992082 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1360535797430723443, guid: a03a46253476b5245ad5e397f3bfbf71,
+    type: 3}
+  m_PrefabInstance: {fileID: 175172235}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1609986558
 GameObject:
   m_ObjectHideFlags: 0
@@ -2486,10 +2504,13 @@ MonoBehaviour:
     type: 3}
   pinkCloydPrefab: {fileID: 5243899971975144582, guid: de45ed9d69c0a414a86ecc872ae2f1f6,
     type: 3}
-  _horsapienPrefab: {fileID: 0}
-  _wholiveseePrefab: {fileID: 0}
-  _karladamsPrefab: {fileID: 0}
-  playerBattleStation: {fileID: 175172236}
+  atadamPrefab: {fileID: 0}
+  kardanadamPrefab: {fileID: 0}
+  zombiePrefab: {fileID: 0}
+  playerBattleStation1: {fileID: 175172236}
+  playerBattleStation2: {fileID: 1341945891}
+  playerBattleStation3: {fileID: 1547992082}
+  playerBattleStation4: {fileID: 216415708}
   enemyBattleStation: {fileID: 1153605232}
   firstPlayer: {fileID: 0}
   secondPlayer: {fileID: 0}
