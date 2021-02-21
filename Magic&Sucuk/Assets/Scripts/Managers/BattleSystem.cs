@@ -132,34 +132,446 @@ namespace Managers
             Debug.Log("Array: \nHavai: " + arr[0]+ "\nAtadam: "+ arr[1]+"\nMadanadrak: "+ arr[2]+"\nZombi: "+ arr[3]);
             Array.Sort(arr);
             
-            if (havai == 1)
+            // Havai 1
+            if (havai == 1 && atadam == 2 && kardanadam == 3)
             {
                 GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation1);
                 firstPlayer = havaiGO.GetComponent<BalancedClass>();
-                if (atadam == 2)
-                {
-                    GameObject atGO = Instantiate(atadamPrefab, playerBattleStation2);
-                    secondPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
-                    if (kardanadam == 3)
-                    {
-                        GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation3);
-                        thirdPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+                
+                GameObject atGO = Instantiate(atadamPrefab, playerBattleStation2);
+                secondPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
+                
+                GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation3);
+                thirdPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
                         
-                        GameObject zombie = Instantiate(zombiePrefab, playerBattleStation4);
-                        fourthPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
-                    }
-                    else if (zombi == 3)
-                    {
-                        GameObject zombie = Instantiate(zombiePrefab, playerBattleStation3);
-                        SupportClass thirdPlayer;
-                        thirdPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
+                GameObject zombie = Instantiate(zombiePrefab, playerBattleStation4);
+                fourthPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
+            } 
+            else if (havai == 1 && kardanadam == 2 && atadam == 3 )
+            {
+                GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation1);
+                firstPlayer = havaiGO.GetComponent<BalancedClass>();
+                
+                GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation2);
+                DamageClass secondPlayer;
+                secondPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+                
+                GameObject atGO = Instantiate(atadamPrefab, playerBattleStation3);
+                TankClass thirdPlayer;
+                thirdPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
+                
+                GameObject zombie = Instantiate(zombiePrefab, playerBattleStation4);
+                fourthPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
+            }
+            else if (havai == 1 && atadam == 2 && zombi == 3)
+            {
+                GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation1);
+                firstPlayer = havaiGO.GetComponent<BalancedClass>();
+                
+                GameObject atGO = Instantiate(atadamPrefab, playerBattleStation2);
+                secondPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
+                
+                GameObject zombie = Instantiate(zombiePrefab, playerBattleStation3);
+                SupportClass thirdPlayer;
+                thirdPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
                         
-                        GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation3);
-                        DamageClass fourthPlayer;
-                        fourthPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+                GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation4);
+                DamageClass fourthPlayer;
+                fourthPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+            }
+            else if (havai == 1 && zombi == 2 && atadam == 3)
+            {
+                GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation1);
+                firstPlayer = havaiGO.GetComponent<BalancedClass>();
+                
+                GameObject zombie = Instantiate(zombiePrefab, playerBattleStation2);
+                SupportClass secondPlayer;
+                secondPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
+                
+                GameObject atGO = Instantiate(atadamPrefab, playerBattleStation3);
+                TankClass thirdPlayer;
+                thirdPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
+                
+                GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation4);
+                DamageClass fourthPlayer;
+                fourthPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+            }
+            else if (havai == 1 && zombi == 2 && kardanadam == 3)
+            {
+                GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation1);
+                firstPlayer = havaiGO.GetComponent<BalancedClass>();
+                
+                GameObject zombie = Instantiate(zombiePrefab, playerBattleStation2);
+                SupportClass secondPlayer;
+                secondPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
+                
+                GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation3);
+                DamageClass thirdPlayer;
+                thirdPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+                
+                GameObject atGO = Instantiate(atadamPrefab, playerBattleStation4);
+                TankClass fourthPlayer;
+                fourthPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
+            }
+            else if (havai == 1 && kardanadam == 2 && zombi == 3)
+            {
+                GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation1);
+                firstPlayer = havaiGO.GetComponent<BalancedClass>();
+                
+                GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation2);
+                DamageClass secondPlayer;
+                secondPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+                
+                GameObject zombie = Instantiate(zombiePrefab, playerBattleStation3);
+                SupportClass thirdPlayer;
+                thirdPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
 
-                    }
-                }
+                GameObject atGO = Instantiate(atadamPrefab, playerBattleStation4);
+                TankClass fourthPlayer;
+                fourthPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
+            }
+            // kardanadam 1
+            else if(kardanadam == 1 && zombi == 2 && havai == 3)
+            {
+                GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation1);
+                DamageClass firstPlayer;
+                firstPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+                
+                GameObject zombie = Instantiate(zombiePrefab, playerBattleStation2);
+                SupportClass secondPlayer;
+                secondPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
+                
+                GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation3);
+                BalancedClass thirdPlayer;
+                thirdPlayer = havaiGO.GetComponent<BalancedClass>();
+                
+                GameObject atGO = Instantiate(atadamPrefab, playerBattleStation4);
+                TankClass fourthPlayer;
+                fourthPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
+            }
+            else if(kardanadam == 1 && zombi == 2 && atadam == 3)
+            {
+                GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation1);
+                DamageClass firstPlayer;
+                firstPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+                
+                GameObject zombie = Instantiate(zombiePrefab, playerBattleStation2);
+                SupportClass secondPlayer;
+                secondPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
+                
+                GameObject atGO = Instantiate(atadamPrefab, playerBattleStation3);
+                TankClass thirdPlayer;
+                thirdPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
+                
+                GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation4);
+                BalancedClass fourthPlayer;
+                fourthPlayer = havaiGO.GetComponent<BalancedClass>();
+            }
+            else if(kardanadam == 1 && havai == 2 && zombi == 3)
+            {
+                GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation1);
+                DamageClass firstPlayer;
+                firstPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+                
+                GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation2);
+                BalancedClass secondPlayer;
+                secondPlayer = havaiGO.GetComponent<BalancedClass>();
+                
+                GameObject zombie = Instantiate(zombiePrefab, playerBattleStation3);
+                SupportClass thirdPlayer;
+                thirdPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
+                
+                GameObject atGO = Instantiate(atadamPrefab, playerBattleStation4);
+                TankClass fourthPlayer;
+                fourthPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
+            }
+            else if (kardanadam == 1 && havai == 2 && atadam == 3)
+            {
+                GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation1);
+                DamageClass firstPlayer;
+                firstPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+                
+                GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation2);
+                BalancedClass secondPlayer;
+                secondPlayer = havaiGO.GetComponent<BalancedClass>();
+                
+                GameObject atGO = Instantiate(atadamPrefab, playerBattleStation3);
+                TankClass thirdPlayer;
+                thirdPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
+                
+                GameObject zombie = Instantiate(zombiePrefab, playerBattleStation4);
+                SupportClass fourthPlayer;
+                fourthPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
+            }
+            else if (kardanadam == 1 && atadam == 2 && havai == 3)
+            {
+                GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation1);
+                DamageClass firstPlayer;
+                firstPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+                
+                GameObject atGO = Instantiate(atadamPrefab, playerBattleStation2);
+                TankClass secondPlayer;
+                secondPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
+                
+                GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation3);
+                BalancedClass thirdPlayer;
+                thirdPlayer = havaiGO.GetComponent<BalancedClass>();
+
+                GameObject zombie = Instantiate(zombiePrefab, playerBattleStation4);
+                SupportClass fourthPlayer;
+                fourthPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
+            }
+            else if (kardanadam == 1 && atadam == 2 && zombi == 3)
+            {
+                GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation1);
+                DamageClass firstPlayer;
+                firstPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+                
+                GameObject atGO = Instantiate(atadamPrefab, playerBattleStation2);
+                TankClass secondPlayer;
+                secondPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
+                
+                GameObject zombie = Instantiate(zombiePrefab, playerBattleStation3);
+                SupportClass thirdPlayer;
+                thirdPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
+                
+                GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation4);
+                BalancedClass fourthPlayer;
+                fourthPlayer = havaiGO.GetComponent<BalancedClass>();
+            }
+            else if (atadam == 1 && zombi == 2 && kardanadam == 3)
+            {
+                GameObject atGO = Instantiate(atadamPrefab, playerBattleStation1);
+                TankClass firstPlayer;
+                firstPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
+                
+                GameObject zombie = Instantiate(zombiePrefab, playerBattleStation2);
+                SupportClass secondPlayer;
+                secondPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
+                
+                GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation3);
+                DamageClass thirdPlayer;
+                thirdPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+                
+                GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation4);
+                BalancedClass fourthPlayer;
+                fourthPlayer = havaiGO.GetComponent<BalancedClass>();
+            }
+            else if (atadam == 1 && kardanadam == 2 && zombi == 3 )
+            {
+                GameObject atGO = Instantiate(atadamPrefab, playerBattleStation1);
+                TankClass firstPlayer;
+                firstPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
+                
+                GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation2);
+                DamageClass secondPlayer;
+                secondPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+                
+                GameObject zombie = Instantiate(zombiePrefab, playerBattleStation3);
+                SupportClass thirdPlayer;
+                thirdPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
+                
+                GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation4);
+                BalancedClass fourthPlayer;
+                fourthPlayer = havaiGO.GetComponent<BalancedClass>();
+            }
+            else if (atadam == 1 && kardanadam == 2 && havai == 3 )
+            {
+                GameObject atGO = Instantiate(atadamPrefab, playerBattleStation1);
+                TankClass firstPlayer;
+                firstPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
+                
+                GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation2);
+                DamageClass secondPlayer;
+                secondPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+                
+                GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation3);
+                BalancedClass thirdPlayer;
+                thirdPlayer = havaiGO.GetComponent<BalancedClass>();
+                
+                GameObject zombie = Instantiate(zombiePrefab, playerBattleStation4);
+                SupportClass fourthPlayer;
+                fourthPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
+            }
+            else if (atadam == 1 && zombi == 2 && havai == 3 )
+            {
+                GameObject atGO = Instantiate(atadamPrefab, playerBattleStation1);
+                TankClass firstPlayer;
+                firstPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
+                
+                GameObject zombie = Instantiate(zombiePrefab, playerBattleStation2);
+                SupportClass secondPlayer;
+                secondPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
+                
+                GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation3);
+                BalancedClass thirdPlayer;
+                thirdPlayer = havaiGO.GetComponent<BalancedClass>();
+                
+                GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation4);
+                DamageClass fourthPlayer;
+                fourthPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+            }
+            else if (atadam == 1 && havai == 2 && zombi == 3 )
+            {
+                GameObject atGO = Instantiate(atadamPrefab, playerBattleStation1);
+                TankClass firstPlayer;
+                firstPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
+                
+                GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation2);
+                BalancedClass secondPlayer;
+                secondPlayer = havaiGO.GetComponent<BalancedClass>();
+                
+                GameObject zombie = Instantiate(zombiePrefab, playerBattleStation3);
+                SupportClass thirdPlayer;
+                thirdPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
+
+                GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation4);
+                DamageClass fourthPlayer;
+                fourthPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+            }
+            else if (atadam == 1 && havai == 2 && kardanadam == 3 )
+            {
+                GameObject atGO = Instantiate(atadamPrefab, playerBattleStation1);
+                TankClass firstPlayer;
+                firstPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
+                
+                GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation2);
+                BalancedClass secondPlayer;
+                secondPlayer = havaiGO.GetComponent<BalancedClass>();
+                
+                GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation3);
+                DamageClass thirdPlayer;
+                thirdPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+                
+                GameObject zombie = Instantiate(zombiePrefab, playerBattleStation4);
+                SupportClass fourthPlayer;
+                fourthPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
+            }
+            else if (zombi == 1 && atadam == 2 && kardanadam == 3 )
+            {
+                GameObject zombie = Instantiate(zombiePrefab, playerBattleStation1);
+                SupportClass firstPlayer;
+                firstPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
+                
+                GameObject atGO = Instantiate(atadamPrefab, playerBattleStation2);
+                TankClass secondPlayer;
+                secondPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
+                
+                GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation3);
+                DamageClass thirdPlayer;
+                thirdPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+                
+                GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation4);
+                BalancedClass fourthPlayer;
+                fourthPlayer = havaiGO.GetComponent<BalancedClass>();
+            }
+            else if (zombi == 1 && atadam == 2 && havai == 3 )
+            {
+                GameObject zombie = Instantiate(zombiePrefab, playerBattleStation1);
+                SupportClass firstPlayer;
+                firstPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
+                
+                GameObject atGO = Instantiate(atadamPrefab, playerBattleStation2);
+                TankClass secondPlayer;
+                secondPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
+
+                GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation3);
+                BalancedClass thirdPlayer;
+                thirdPlayer = havaiGO.GetComponent<BalancedClass>();
+                
+                GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation4);
+                DamageClass fourthPlayer;
+                fourthPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+            }
+            else if (zombi == 1 && havai == 2 && kardanadam == 3 )
+            {
+                GameObject zombie = Instantiate(zombiePrefab, playerBattleStation1);
+                SupportClass firstPlayer;
+                firstPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
+                
+                GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation2);
+                BalancedClass secondPlayer;
+                secondPlayer = havaiGO.GetComponent<BalancedClass>();
+                
+                GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation3);
+                DamageClass thirdPlayer;
+                thirdPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+                
+                GameObject atGO = Instantiate(atadamPrefab, playerBattleStation4);
+                TankClass fourthPlayer;
+                fourthPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
+            }
+            else if (zombi == 1 && havai == 2 && atadam == 3 )
+            {
+                GameObject zombie = Instantiate(zombiePrefab, playerBattleStation1);
+                SupportClass firstPlayer;
+                firstPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
+                
+                GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation2);
+                BalancedClass secondPlayer;
+                secondPlayer = havaiGO.GetComponent<BalancedClass>();
+                
+                GameObject atGO = Instantiate(atadamPrefab, playerBattleStation3);
+                TankClass thirdPlayer;
+                thirdPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
+                
+                GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation4);
+                DamageClass fourthPlayer;
+                fourthPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+            }
+            else if (zombi == 1 && havai == 2 && atadam == 3 )
+            {
+                GameObject zombie = Instantiate(zombiePrefab, playerBattleStation1);
+                SupportClass firstPlayer;
+                firstPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
+                
+                GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation2);
+                BalancedClass secondPlayer;
+                secondPlayer = havaiGO.GetComponent<BalancedClass>();
+                
+                GameObject atGO = Instantiate(atadamPrefab, playerBattleStation3);
+                TankClass thirdPlayer;
+                thirdPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
+                
+                GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation4);
+                DamageClass fourthPlayer;
+                fourthPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+            }
+            else if (zombi == 1 && kardanadam == 2 && atadam == 3 )
+            {
+                GameObject zombie = Instantiate(zombiePrefab, playerBattleStation1);
+                SupportClass firstPlayer;
+                firstPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
+                
+                GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation2);
+                DamageClass fourthPlayer;
+                fourthPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+                
+                GameObject atGO = Instantiate(atadamPrefab, playerBattleStation3);
+                TankClass thirdPlayer;
+                thirdPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
+                
+                GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation4);
+                BalancedClass secondPlayer;
+                secondPlayer = havaiGO.GetComponent<BalancedClass>();
+            }
+            else if (zombi == 1 && kardanadam == 2 && havai == 3 )
+            {
+                GameObject zombie = Instantiate(zombiePrefab, playerBattleStation1);
+                SupportClass firstPlayer;
+                firstPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
+                
+                GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation2);
+                DamageClass secondPlayer;
+                secondPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
+                
+                GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation3);
+                BalancedClass thirdPlayer;
+                thirdPlayer = havaiGO.GetComponent<BalancedClass>();
+                
+                GameObject atGO = Instantiate(atadamPrefab, playerBattleStation4);
+                TankClass fourthPlayer;
+                fourthPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
             }
 
             skills = GetComponent<Skills>();
