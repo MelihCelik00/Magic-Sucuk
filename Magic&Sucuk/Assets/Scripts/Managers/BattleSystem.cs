@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 using Unit;
+using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
 
 namespace Managers
@@ -25,6 +27,8 @@ namespace Managers
         public Transform enemyBattleStation;
 
         private bool key;
+
+        [SerializeField] public Animator pink_cloyd, hava_i, kardan, at, zombi;
         
         // Primary Unit object declarations
         public BalancedClass firstPlayer;
@@ -32,9 +36,7 @@ namespace Managers
         public DamageClass thirdPlayer;
         public SupportClass fourthPlayer;
         public BossClass pinkCloyd;
-        
-        
-        
+
         public Text dialogueText;
 
         public BattleHUD playerHUD;
@@ -50,7 +52,7 @@ namespace Managers
         private bool choiceS;
         private bool choiceD;
         private bool choiceF;
-        private bool choiceG;
+        private bool choiceSpace;
         
         private void Start()
         {
@@ -68,7 +70,7 @@ namespace Managers
                     choiceS = false;
                     choiceD = false;
                     choiceF = false;
-                    choiceG = false;
+                    choiceSpace = false;
                     Debug.Log("A");
                     choiceTime = false;
                 }
@@ -78,7 +80,7 @@ namespace Managers
                     choiceS = true;
                     choiceD = false;
                     choiceF = false;
-                    choiceG = false;
+                    choiceSpace = false;
                     Debug.Log("S");
                     choiceTime = false;
                 }
@@ -88,7 +90,7 @@ namespace Managers
                     choiceS = false;
                     choiceD = true;
                     choiceF = false;
-                    choiceG = false;
+                    choiceSpace = false;
                     Debug.Log("D");
                     choiceTime = false;
                 }
@@ -98,22 +100,21 @@ namespace Managers
                     choiceS = false;
                     choiceD = false;
                     choiceF = true;
-                    choiceG = false;
+                    choiceSpace = false;
                     Debug.Log("F");
                     choiceTime = false;
                 }
-                else if (Input.GetKeyDown(KeyCode.G))
+                else if (Input.GetKeyDown(KeyCode.Space))
                 {
                     choiceA = false;
                     choiceS = false;
                     choiceD = false;
                     choiceF = false;
-                    choiceG = true;
-                    Debug.Log("G");
+                    choiceSpace = true;
+                    Debug.Log("Space");
                     choiceTime = false;
                 }
             }
-            
         }
 
         private IEnumerator SetupBattle()
@@ -133,8 +134,8 @@ namespace Managers
             Array.Sort(arr);
             
             // Havai 1
-            if (havai == 1 && atadam == 2 && kardanadam == 3)
-            {
+            //if (havai == 1 && atadam == 2 && kardanadam == 3)
+            //{
                 GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation1);
                 firstPlayer = havaiGO.GetComponent<BalancedClass>();
                 
@@ -146,7 +147,9 @@ namespace Managers
                         
                 GameObject zombie = Instantiate(zombiePrefab, playerBattleStation4);
                 fourthPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
-            } 
+                
+            //} 
+            /*
             else if (havai == 1 && kardanadam == 2 && atadam == 3 )
             {
                 GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation1);
@@ -572,7 +575,7 @@ namespace Managers
                 GameObject atGO = Instantiate(atadamPrefab, playerBattleStation4);
                 TankClass fourthPlayer;
                 fourthPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
-            }
+            }*/
 
             skills = GetComponent<Skills>();
 
@@ -582,7 +585,10 @@ namespace Managers
             //enemyHUD.SetHUD(enemyUnit);
 
             yield return new WaitForSeconds(2f);
-
+            Debug.Log("First player: " + firstPlayer.unit.unitName);
+            Debug.Log("Second player: " + secondPlayer.unit.unitName);
+            Debug.Log("Third player: " + thirdPlayer.unit.unitName);
+            Debug.Log("Fourth player: " + fourthPlayer.unit.unitName);
             state = BattleState.FIRST_PLAYERTURN;
             StartCoroutine(FirstPlayerTurn());
         }
@@ -632,26 +638,45 @@ namespace Managers
             
             yield return new WaitForSeconds(1f);
             int randomSkill = Random.Range(1, 5); // Roll a random skill
-            Debug.Log(randomSkill);
-            int toWhom = Random.Range(1, 4); // Roll a random enemy
+            Unit.Unit randUnit = null;
+            int toWhom = Random.Range(1, 4);
+            if (toWhom == 1)
+            {
+                randUnit = firstPlayer.unit;
+            }
+            else if (toWhom == 2)
+            {
+                randUnit = secondPlayer.unit;
+            }
+            else if (toWhom == 3)
+            {
+                randUnit = thirdPlayer.unit;
+            }
+            else if (toWhom == 4)
+            {
+                randUnit = fourthPlayer.unit;
+            }
+
+            Debug.Log(randUnit);
+             // Roll a random enemy
             if (randomSkill==1)
             {
-                pinkCloyd.FirstSkill(firstPlayer.unit);
+                pinkCloyd.FirstSkill(randUnit);
                 Debug.Log("1den cikti");
             }
             else if (randomSkill == 2)
             {
-                pinkCloyd.SecondSkill(firstPlayer.unit);
+                pinkCloyd.SecondSkill(randUnit);
                 Debug.Log("2den cikti");
             }
             else if (randomSkill == 3)
             {
-                pinkCloyd.ThirdSkill(firstPlayer.unit);
+                pinkCloyd.ThirdSkill(randUnit);
                 Debug.Log("3den cikti");
             }
             else if (randomSkill == 4)
             {
-                pinkCloyd.FourthSkill(firstPlayer.unit);
+                pinkCloyd.FourthSkill(randUnit);
                 Debug.Log("4den cikti");
             }
             else if (randomSkill == 5)
@@ -659,10 +684,10 @@ namespace Managers
                 pinkCloyd.FifthSkill();
                 Debug.Log("5den cikti");
             }
+            playerHUD.SetHUD(randUnit);
+            //playerHUD.SetHP(firstPlayer.unit.currentHP);
             
-            playerHUD.SetHP(firstPlayer.unit.currentHP);
-            
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(3f);
             bool isDead = firstPlayer.unit.ProcessDeath(firstPlayer.unit);
 
             if (isDead)
@@ -672,6 +697,7 @@ namespace Managers
             }
             else
             {
+                Debug.Log("FIRST PLAYERA GERI DONDU");
                 state = BattleState.FIRST_PLAYERTURN;
                 StartCoroutine(FirstPlayerTurn());
             }
@@ -691,7 +717,7 @@ namespace Managers
         IEnumerator FirstPlayerTurn() ////////////////////////////////////////
         {
             dialogueText.text = "Choose an action for " + firstPlayer.unit.unitName;
-
+            playerHUD.SetHUD(firstPlayer.unit);
             if (state == BattleState.FIRST_PLAYERTURN)
             {
                 choiceTime = true;
@@ -704,24 +730,83 @@ namespace Managers
                 if (choiceA)
                 {
                     firstPlayer.FirstSkill();
+                    //hava_i.SetTrigger("Defans-korna");
                 }
                 else if (choiceS)
                 {
-                    
                     firstPlayer.SecondSkill(pinkCloyd.unit);
                     Debug.Log("Second choice");
+                    //hava_i.SetTrigger("Korna_Attack");
+                    //pink_cloyd.SetTrigger("PinkCloyd_Defans");
                 }
                 else if (choiceD)
                 {
                     firstPlayer.ThirdSkill(pinkCloyd.unit);
+                    //hava_i.SetTrigger("Korna_Attack");
+                    //pink_cloyd.SetTrigger("PinkCloyd_Defans");
                 }
                 else if (choiceF)
                 {
                     firstPlayer.FourthSkill();
+                    //hava_i.SetTrigger("Korna_defans");
                 }
-                else if (choiceG)
+                else if (choiceSpace)
                 {
                     firstPlayer.FifthSkill();
+                    //hava_i.SetTrigger("Korna_defans");
+                }
+                enemyHUD.SetHP(pinkCloyd.unit.currentHP);
+                
+                bool isDead = pinkCloyd.unit.ProcessDeath(pinkCloyd.unit);
+                if (isDead)
+                {
+                    // End battle
+                    state = BattleState.WON;
+                    EndBattle();
+                }
+                else
+                {
+                    Debug.Log("SECONDA PLAYERA GERI DONDU");
+                    state = BattleState.SECOND_PLAYERTURN;
+                    StartCoroutine(SecondPlayerTurn()); // enemy'e degil second playera gececek
+                }
+            }
+        }
+
+        IEnumerator SecondPlayerTurn()
+        {
+            dialogueText.text = secondPlayer.unit.unitName + " attacks!";
+            playerHUD.SetHUD(secondPlayer.unit);
+            yield return new WaitForSeconds(1);
+            if (state == BattleState.SECOND_PLAYERTURN)
+            {
+                choiceTime = true;
+                Debug.Log("SEÇ");
+
+                while (choiceTime)
+                {
+                    yield return new WaitForSeconds(1f);
+                }
+                if (choiceA)
+                {
+                    secondPlayer.FirstSkill();
+                }
+                else if (choiceS)
+                {
+                    secondPlayer.SecondSkill(pinkCloyd.unit);
+                    Debug.Log("Second choice");
+                }
+                else if (choiceD)
+                {
+                    secondPlayer.ThirdSkill(pinkCloyd.unit);
+                }
+                else if (choiceF)
+                {
+                    secondPlayer.FourthSkill();
+                }
+                else if (choiceSpace)
+                {
+                    secondPlayer.FifthSkill();
                 }
                 enemyHUD.SetHP(pinkCloyd.unit.currentHP);
 
@@ -735,12 +820,117 @@ namespace Managers
                 else
                 {
                     // Enemy turn
-                    state = BattleState.SECOND_PLAYERTURN;
-                    StartCoroutine(EnemyTurn()); // enemy'e degil second playera gececek
+                    state = BattleState.THIRD_PLAYERTURN;
+                    StartCoroutine(ThirdPlayerTurn()); // enemy'e degil second playera gececek
                 }
             }
         }
 
+        IEnumerator ThirdPlayerTurn()
+        {
+            dialogueText.text = thirdPlayer.unit.unitName + " attacks!";
+            playerHUD.SetHUD(thirdPlayer.unit);
+            yield return new WaitForSeconds(1);
+            if (state == BattleState.THIRD_PLAYERTURN)
+            {
+                choiceTime = true;
+                Debug.Log("SEÇ");
+
+                while (choiceTime)
+                {
+                    yield return new WaitForSeconds(1f);
+                }
+                if (choiceA)
+                {
+                    thirdPlayer.FirstSkill();
+                }
+                else if (choiceS)
+                {
+                    thirdPlayer.SecondSkill(pinkCloyd.unit);
+                    Debug.Log("Second choice");
+                }
+                else if (choiceD)
+                {
+                    thirdPlayer.ThirdSkill(pinkCloyd.unit);
+                }
+                else if (choiceF)
+                {
+                    thirdPlayer.FourthSkill();
+                }
+                else if (choiceSpace)
+                {
+                    thirdPlayer.FifthSkill();
+                }
+                enemyHUD.SetHP(pinkCloyd.unit.currentHP);
+
+                bool isDead = pinkCloyd.unit.ProcessDeath(pinkCloyd.unit);
+                if (isDead)
+                {
+                    // End battle
+                    state = BattleState.WON;
+                    EndBattle();
+                }
+                else
+                {
+                    // Enemy turn
+                    state = BattleState.FOURTHPLAYER_TURN;
+                    StartCoroutine(FourthPlayerTurn()); // enemy'e degil second playera gececek
+                }
+            }
+        }
+
+        IEnumerator FourthPlayerTurn()
+        {
+            dialogueText.text = fourthPlayer.unit.unitName + " attacks!";
+            playerHUD.SetHUD(fourthPlayer.unit);
+            yield return new WaitForSeconds(1);
+            if (state == BattleState.FOURTHPLAYER_TURN)
+            {
+                choiceTime = true;
+                Debug.Log("SEÇ");
+
+                while (choiceTime)
+                {
+                    yield return new WaitForSeconds(1f);
+                }
+                if (choiceA)
+                {
+                    fourthPlayer.FirstSkill();
+                }
+                else if (choiceS)
+                {
+                    fourthPlayer.SecondSkill(pinkCloyd.unit);
+                    Debug.Log("Second choice");
+                }
+                else if (choiceD)
+                {
+                    fourthPlayer.ThirdSkill(pinkCloyd.unit);
+                }
+                else if (choiceF)
+                {
+                    fourthPlayer.FourthSkill(pinkCloyd.unit);
+                }
+                else if (choiceSpace)
+                {
+                    fourthPlayer.FifthSkill(pinkCloyd.unit);
+                }
+                enemyHUD.SetHP(pinkCloyd.unit.currentHP);
+
+                bool isDead = pinkCloyd.unit.ProcessDeath(pinkCloyd.unit);
+                if (isDead)
+                {
+                    // End battle
+                    state = BattleState.WON;
+                    EndBattle();
+                }
+                else
+                {
+                    // Enemy turn
+                    state = BattleState.ENEMYTURN;
+                    StartCoroutine(EnemyTurn()); 
+                }
+            }
+        }
         /// <summary>
         /// Temporary methods, can be deleted after deleting buttons on the GUI
         /// </summary>

@@ -24,7 +24,10 @@ namespace Unit
             currentHP -= dmg;
 
             if (currentHP <= 0)
+            {
+                Destroy(this.gameObject);
                 return true;
+            }
             else
                 return false;
         }
@@ -37,11 +40,13 @@ namespace Unit
                 currentHP = maxHP;
             }
         }
-        
+
         public bool ProcessDeath(Unit unit)
         {
-            if (unit.currentHP <= 0)
+            if (unit.currentHP <= 0){
+                Destroy(unit.gameObject);
                 return true;
+            }
             else
                 return false;
         }

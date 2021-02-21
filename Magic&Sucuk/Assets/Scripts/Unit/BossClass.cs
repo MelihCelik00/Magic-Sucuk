@@ -7,6 +7,7 @@ namespace Unit
     {
         public Unit unit;
         public BattleHUD enemyHUD;
+        public BattleHUD playerHUD;
         private Skills _skills;
 
         private void Start()
@@ -21,16 +22,19 @@ namespace Unit
         public void FirstSkill(Unit _unit)
         {
             PhysicalStrike(_unit, unit.damage);
+            
         }
 
         public void SecondSkill(Unit _unit)
         {
             WaterStrike(_unit, unit.magicDamage);
+            
         }
 
         public void ThirdSkill(Unit _unit)
         {
             StreamStrike(_unit, unit.magicDamage);
+            
         }
 
         public void FourthSkill(Unit _unit)
