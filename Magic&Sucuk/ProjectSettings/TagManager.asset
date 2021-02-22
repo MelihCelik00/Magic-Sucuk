@@ -3,16 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - enemyHUD
-  - playerHUD
-  - havai
-  - pinkcloyd
-  - battleManager
-  - zombie
-  - horsapien
-  - kardanadam
-  - atSkillUI
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -22,7 +13,7 @@ TagManager:
   - UI
   - 
   - 
-  - Character
+  - 
   - 
   - 
   - 
