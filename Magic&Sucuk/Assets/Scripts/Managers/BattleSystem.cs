@@ -4,7 +4,6 @@ using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 using Unit;
-using UnityEditor.Animations;
 using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
 
@@ -54,12 +53,6 @@ namespace Managers
         private bool choiceD;
         private bool choiceF;
         private bool choiceSpace;
-        
-        public AnimatorController _atAnimControl;
-        public AnimatorController _karAnimControl;
-        public AnimatorController _kornaAnimControl;
-        public AnimatorController _zombiAnimControl;
-        public AnimatorController _pinkAnimControl;
         
         private void Start()
         {
@@ -144,19 +137,15 @@ namespace Managers
             //if (havai == 1 && atadam == 2 && kardanadam == 3)
             //{
                 GameObject havaiGO = Instantiate(havaiPrefab, playerBattleStation1);
-                havaiGO.transform.GetChild(0).GetComponent<Animator>().runtimeAnimatorController = _kornaAnimControl;
                 firstPlayer = havaiGO.GetComponent<BalancedClass>();
                 
                 GameObject atGO = Instantiate(atadamPrefab, playerBattleStation2);
-                atGO.transform.GetChild(0).GetComponent<Animator>().runtimeAnimatorController = _atAnimControl;
                 secondPlayer = atGO.GetComponent<TankClass>(); // Class değişecek
                 
                 GameObject kaGO = Instantiate(kardanadamPrefab, playerBattleStation3);
-                kaGO.transform.GetChild(0).GetComponent<Animator>().runtimeAnimatorController = _karAnimControl;
                 thirdPlayer = kaGO.GetComponent<DamageClass>(); // Class değişecek
                         
                 GameObject zombie = Instantiate(zombiePrefab, playerBattleStation4);
-                zombie.transform.GetChild(0).GetComponent<Animator>().runtimeAnimatorController = _zombiAnimControl;
                 fourthPlayer = zombie.GetComponent<SupportClass>(); // Class değişecek
                 
             //} 
