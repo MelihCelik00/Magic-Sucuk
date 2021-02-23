@@ -34,9 +34,9 @@ namespace Unit
             StreamStrike(targetUnit, unit.magicDamage);
         }
 
-        public void FourthSkill()
+        public void FourthSkill(Unit targetUnit)
         {
-            Expose(unit);
+            Expose(targetUnit);
         }
 
         public void FifthSkill()
