@@ -112,6 +112,7 @@ GameObject:
   - component: {fileID: 2487561428707260747}
   - component: {fileID: 3512979759845065954}
   - component: {fileID: 3512979759845065955}
+  - component: {fileID: -8928019057867324713}
   m_Layer: 0
   m_Name: Korna
   m_TagString: havai
@@ -171,3 +172,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unit: {fileID: 3512979759845065954}
   playerHUD: {fileID: 0}
+--- !u!114 &-8928019057867324713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3512979759845065957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b340d690049124df1abd51e37aa7a405, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

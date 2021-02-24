@@ -58,6 +58,8 @@ namespace Managers
         private bool choiceF;
         private bool choiceSpace;
 
+        public bool kornaDead, karDead, zombiDead, atDead, isDead;
+
         private GameObject kornaObj;
         private GameObject atObj;
         private GameObject karObj;
@@ -177,12 +179,10 @@ namespace Managers
             atObj = Instantiate(atPrefab, playerBattleStation2);
             atChar = atObj.GetComponent<TankClass>(); // Class değişecek
 
-            // altakilerde  GameObject var yukardakilerde niye yok? Melih
-
-            GameObject karObj = Instantiate(karPrefab, playerBattleStation3);
+            karObj = Instantiate(karPrefab, playerBattleStation3);
             karChar = karObj.GetComponent<DamageClass>(); // Class değişecek
                     
-            GameObject zombiObj = Instantiate(zombiPrefab, playerBattleStation4);
+            zombiObj = Instantiate(zombiPrefab, playerBattleStation4);
             zombiChar = zombiObj.GetComponent<SupportClass>(); // Class değişecek
                 
             skills = GetComponent<Skills>();
@@ -251,6 +251,26 @@ namespace Managers
             GameObject randAnim = null;
             String str = null;
             int toWhom = Random.Range(1, 4);
+            
+            // TODO: dead boolu kontrol edilsin ve sayidaki oluyse 1 arttirsin
+
+            if (toWhom == 1 && kornaDead)
+            {
+                toWhom = 2;
+            }
+            if (toWhom==2 && atDead)
+            {
+                toWhom = 3;
+            }
+            if (toWhom == 3 && karDead)
+            {
+                toWhom = 4;
+            }
+            if (toWhom == 4 && zombiDead)
+            {
+                toWhom = 1;
+            }
+
             if (toWhom == 1)
             {
                 randUnit = kornaChar.unit;
@@ -264,6 +284,7 @@ namespace Managers
                 randUnit = atChar.unit;
                 randObj = atObj;
                 randObj = GameObject.FindGameObjectWithTag(atObj.tag);
+                randAnim = atAnim;
                 str = "At-Defans";
             }
             else if (toWhom == 3)
@@ -271,6 +292,7 @@ namespace Managers
                 randUnit = karChar.unit;
                 randObj = karObj;
                 randObj = GameObject.FindGameObjectWithTag(karObj.tag);
+                randAnim = karAnim;
                 str = "Kar-Defans";
             }
             else if (toWhom == 4)
@@ -278,6 +300,7 @@ namespace Managers
                 randUnit = zombiChar.unit;
                 randObj = zombiObj;
                 randObj = GameObject.FindGameObjectWithTag(zombiObj.tag);
+                randAnim = zombiAnim;
                 str = "Zombi-Defans";
             }
             randAnim.SetActive(true);
@@ -286,7 +309,7 @@ namespace Managers
             if (randomSkill==1) // Physical Strike
             {
                 pinkAnim.GetComponent<Animator>().SetTrigger("Pink-Attack");
-                randObj.GetComponent<Animator>().SetTrigger(str);
+                randAnim.GetComponent<Animator>().SetTrigger(str);
                 pinkAtkAudio.GetComponent<AudioSource>().Play();
                 animBackground.SetActive(true);
                 pinkChar.FirstSkill(randUnit);
@@ -296,7 +319,7 @@ namespace Managers
             else if (randomSkill == 2) // Water Strike
             {
                 pinkAnim.GetComponent<Animator>().SetTrigger("Pink-Attack");
-                randObj.GetComponent<Animator>().SetTrigger(str);
+                randAnim.GetComponent<Animator>().SetTrigger(str);
                 pinkAtkAudio.GetComponent<AudioSource>().Play();
                 animBackground.SetActive(true);
                 pinkChar.SecondSkill(randUnit);
@@ -306,7 +329,7 @@ namespace Managers
             else if (randomSkill == 3) // Stream Strike
             {
                 pinkAnim.GetComponent<Animator>().SetTrigger("Pink-Attack");
-                randObj.GetComponent<Animator>().SetTrigger(str);
+                randAnim.GetComponent<Animator>().SetTrigger(str);
                 pinkAtkAudio.GetComponent<AudioSource>().Play();
                 animBackground.SetActive(true);
                 pinkChar.ThirdSkill(randUnit);
@@ -316,7 +339,7 @@ namespace Managers
             else if (randomSkill == 4) // Wind Strike
             {
                 pinkAnim.GetComponent<Animator>().SetTrigger("Pink-Attack");
-                randObj.GetComponent<Animator>().SetTrigger(str);
+                randAnim.GetComponent<Animator>().SetTrigger(str);
                 pinkAtkAudio.GetComponent<AudioSource>().Play();
                 animBackground.SetActive(true);
                 pinkChar.FourthSkill(randUnit);
@@ -331,14 +354,43 @@ namespace Managers
                 Debug.Log("5den cikti");
                 yield return new WaitForSeconds(1f);
             }
-            randObj.SetActive(true);
+            
+            // check if chosen unit is dead and destroy its GO and close the anim
+            if (randUnit.currentHP <= 0)
+            {
+                if (toWhom == 1 && !kornaDead) // korna
+                {
+                    kornaDead = true;
+                }
+                else if (toWhom == 2 && !atDead) // at
+                {
+                    atDead = true;
+                }
+                else if (toWhom == 3 && !karDead) // kar
+                {
+                    karDead = true;
+                }
+                else if (toWhom == 4 && !zombiDead) // zombi
+                {
+                    zombiDead = true;
+                }
+                //randObj.SetActive(false); // BURASI PATLIYOR
+                Destroy(randObj);
+                Destroy(randAnim);
+            }
+            else
+            {
+                randObj.SetActive(true);
+            }
             randAnim.SetActive(false);
             animBackground.SetActive(false);
             playerHUD.SetHUD(randUnit);
             //playerHUD.SetHP(firstPlayer.unit.currentHP);
             
-            yield return new WaitForSeconds(3f);
-            bool isDead = kornaChar.unit.ProcessDeath(kornaChar.unit);
+            yield return new WaitForSeconds(2f);
+
+            if (atDead && kornaDead && zombiDead && karDead)
+                isDead = true;
 
             if (isDead)
             {
@@ -347,7 +399,6 @@ namespace Managers
             }
             else
             {
-                Debug.Log("FIRST PLAYERA GERI DONDU");
                 state = BattleState.FIRST_PLAYERTURN;
                 StartCoroutine(KornaTurn());
             }
@@ -369,7 +420,7 @@ namespace Managers
         {
             dialogueText.text = "Choose an action for " + kornaChar.unit.unitName;
             playerHUD.SetHUD(kornaChar.unit);
-            if (state == BattleState.FIRST_PLAYERTURN)
+            if (state == BattleState.FIRST_PLAYERTURN && !kornaDead )
             {
                 kornaAnim.SetActive(true);
                 kornaObj.SetActive(false);
@@ -386,32 +437,32 @@ namespace Managers
                 if (choiceSpace)
                 {
                     SetAnimsAndAudio(kornaObj,kornaAnim,"Korna","g",0);
-                    kornaChar.FirstSkill();
+                    kornaChar.Guard();
                 }
                 else if (choiceA)
                 {
                     SetAnimsAndAudio(kornaObj,kornaAnim,"Korna","atk",0);
-                    kornaChar.SecondSkill(pinkChar.unit);
+                    kornaChar.WindStrike(pinkChar.unit);
                     yield return new WaitForSeconds(1f);
                     Debug.Log("Second choice");
                 }
                 else if (choiceS)
                 {
                     SetAnimsAndAudio(kornaObj,kornaAnim,"Korna","atk",0);
-                    kornaChar.ThirdSkill(pinkChar.unit);
+                    kornaChar.StreamStrike(pinkChar.unit);
                     yield return new WaitForSeconds(1f);
                 }
                 else if (choiceD)
                 {
                     SetAnimsAndAudio(kornaObj,kornaAnim,"Korna","osup",0);
-                    kornaChar.FourthSkill(pinkChar.unit);
+                    kornaChar.Expose(pinkChar.unit);
                     yield return new WaitForSeconds(1f);
                 }
                 else if (choiceF)
                 {
                     // Destek anim
                     SetAnimsAndAudio(kornaObj,kornaAnim,"Korna","sup",0);
-                    kornaChar.FifthSkill();
+                    kornaChar.AtkBuff();
                     yield return new WaitForSeconds(1f);
                 }
                 enemyHUD.SetHP(pinkChar.unit.currentHP);
@@ -427,10 +478,14 @@ namespace Managers
                 }
                 else
                 {
-                    Debug.Log("SECONDA PLAYERA GERI DONDU");
                     state = BattleState.SECOND_PLAYERTURN;
                     StartCoroutine(AtTurn()); // enemy'e degil second playera gececek
                 }
+            }
+            else
+            {
+                state = BattleState.SECOND_PLAYERTURN;
+                StartCoroutine(AtTurn()); // enemy'e degil second playera gececek
             }
         }
 
@@ -440,7 +495,7 @@ namespace Managers
             dialogueText.text = atChar.unit.unitName + " attacks!";
             playerHUD.SetHUD(atChar.unit);
             yield return new WaitForSeconds(1);
-            if (state == BattleState.SECOND_PLAYERTURN)
+            if (state == BattleState.SECOND_PLAYERTURN && !atDead)
             {
                 atAnim.SetActive(true);
                 atObj.SetActive(false);
@@ -460,27 +515,26 @@ namespace Managers
                 else if (choiceA) // physical strike
                 {
                     SetAnimsAndAudio(atObj,atAnim,"At","atk",0);
-                    atChar.SecondSkill(pinkChar.unit);
                     yield return new WaitForSeconds(1f);
+                    atChar.SecondSkill(pinkChar.unit);
                 }
                 else if (choiceS) // stream strike
                 {
                     SetAnimsAndAudio(atObj,atAnim,"At","atk",0);
-                    atChar.ThirdSkill(pinkChar.unit);
                     yield return new WaitForSeconds(1f);
-
+                    atChar.ThirdSkill(pinkChar.unit);
                 }
                 else if (choiceD) // provoke
                 {
                     SetAnimsAndAudio(atObj,atAnim,"At","osup",0);
-                    atChar.FourthSkill();
                     yield return new WaitForSeconds(1f);
+                    atChar.FourthSkill();
                 }
                 else if (choiceF) // expose
                 {
                     SetAnimsAndAudio(atObj,atAnim,"At","osup",0);
-                    atChar.FifthSkill();
                     yield return new WaitForSeconds(1f);
+                    atChar.FifthSkill();
                 }
                 enemyHUD.SetHP(pinkChar.unit.currentHP);
                 atObj.SetActive(true);
@@ -497,8 +551,13 @@ namespace Managers
                 {
                     // Enemy turn
                     state = BattleState.THIRD_PLAYERTURN;
-                    StartCoroutine(KarTurn()); // enemy'e degil second playera gececek
+                    StartCoroutine(KarTurn()); 
                 }
+            }
+            else
+            {
+                state = BattleState.THIRD_PLAYERTURN;
+                StartCoroutine(KarTurn()); // enem
             }
         }
 
@@ -507,8 +566,11 @@ namespace Managers
             dialogueText.text = karChar.unit.unitName + " attacks!";
             playerHUD.SetHUD(karChar.unit);
             yield return new WaitForSeconds(1);
-            if (state == BattleState.THIRD_PLAYERTURN)
-            {
+            if (state == BattleState.THIRD_PLAYERTURN && !karDead)
+            { 
+                karAnim.SetActive(true);
+                karObj.SetActive(false);
+
                 choiceTime = true;
                 Debug.Log("SEÇ");
 
@@ -518,32 +580,38 @@ namespace Managers
                 }
                 if (choiceSpace) 
                 {
-                    SetAnimsAndAudio(karObj, karAnim, "kar", "g", 0);  //g=guard, atk, osup=provoke,expose,invetigate, sup= heal,crit chance.... 
+                    SetAnimsAndAudio(karObj, karAnim, "Kar", "g", 0);  //g=guard, atk, osup=provoke,expose,invetigate, sup= heal,crit chance.... 
                     karChar.FirstSkill();
                 }
                 else if (choiceA)
                 {
-                    SetAnimsAndAudio(karObj, karAnim, "kar", "atk", 0);
+                    SetAnimsAndAudio(karObj, karAnim, "Kar", "atk", 0);
+                    yield return new WaitForSeconds(1f);
                     karChar.SecondSkill(pinkChar.unit);
                     Debug.Log("Second choice");
                 }
-                else if (choiceD)
-                {
-                    SetAnimsAndAudio(karObj, karAnim, "kar", "atk", 0); 
-                    karChar.ThirdSkill(pinkChar.unit);
-                }
                 else if (choiceS)
                 {
-                    SetAnimsAndAudio(karObj, karAnim, "kar", "osup", 0); 
+                    SetAnimsAndAudio(karObj, karAnim, "Kar", "atk", 0); 
+                    yield return new WaitForSeconds(1f);
+                    karChar.ThirdSkill(pinkChar.unit);
+                }
+                else if (choiceD)
+                {
+                    SetAnimsAndAudio(karObj, karAnim, "Kar", "osup", 0); 
+                    yield return new WaitForSeconds(1f);
                     karChar.FourthSkill();
                 }
                 else if (choiceF)
                 {
-                    SetAnimsAndAudio(karObj, karAnim, "kar", "sup", 0);
+                    SetAnimsAndAudio(karObj, karAnim, "Kar", "sup", 0);
+                    yield return new WaitForSeconds(1f);
                     karChar.FifthSkill();
                 }
                 enemyHUD.SetHP(pinkChar.unit.currentHP);
-
+                karObj.SetActive(true);
+                karAnim.SetActive(false);
+                animBackground.SetActive(false);
                 bool isDead = pinkChar.unit.ProcessDeath(pinkChar.unit);
                 if (isDead)
                 {
@@ -553,10 +621,14 @@ namespace Managers
                 }
                 else
                 {
-                    // Enemy turn
                     state = BattleState.FOURTHPLAYER_TURN;
-                    StartCoroutine(ZombiTurn()); // enemy'e degil second playera gececek
+                    StartCoroutine(ZombiTurn());
                 }
+            }
+            else
+            {
+                state = BattleState.FOURTHPLAYER_TURN;
+                StartCoroutine(ZombiTurn()); 
             }
         }
 
@@ -565,8 +637,10 @@ namespace Managers
             dialogueText.text = zombiChar.unit.unitName + " attacks!";
             playerHUD.SetHUD(zombiChar.unit);
             yield return new WaitForSeconds(1);
-            if (state == BattleState.FOURTHPLAYER_TURN)
+            if (state == BattleState.FOURTHPLAYER_TURN && !zombiDead)
             {
+                zombiAnim.SetActive(true);
+                zombiObj.SetActive(false);
                 choiceTime = true;
                 Debug.Log("SEÇ");
 
@@ -576,32 +650,39 @@ namespace Managers
                 }
                 if (choiceSpace)
                 {
-                    SetAnimsAndAudio(karObj, karAnim, "zombi", "g", 0);  //g=guard, atk, osup=provoke,expose,invetigate, sup= heal,crit chance.... 
+                    SetAnimsAndAudio(zombiObj, zombiAnim, "Zombi", "g", 0);  //g=guard, atk, osup=provoke,expose,invetigate, sup= heal,crit chance.... 
+                    yield return new WaitForSeconds(1f);
                     zombiChar.FirstSkill();
                 }
                 else if (choiceA)
                 {
-                    SetAnimsAndAudio(karObj, karAnim, "zombi", "sup", 0);  
+                    SetAnimsAndAudio(zombiObj, zombiAnim, "Zombi", "sup", 0);  
+                    yield return new WaitForSeconds(1f);
                     zombiChar.SecondSkill(pinkChar.unit);
                     Debug.Log("Second choice");
                 }
                 else if (choiceS)
                 {
-                    SetAnimsAndAudio(karObj, karAnim, "zombi", "sup", 0);
+                    SetAnimsAndAudio(zombiObj, zombiAnim, "Zombi", "sup", 0);
+                    yield return new WaitForSeconds(1f);
                     zombiChar.ThirdSkill(pinkChar.unit);
                 }
                 else if (choiceD)
                 {
-                    SetAnimsAndAudio(karObj, karAnim, "zombi", "atk", 0);
+                    SetAnimsAndAudio(zombiObj, zombiAnim, "Zombi", "atk", 0);
+                    yield return new WaitForSeconds(1f);
                     zombiChar.FourthSkill(pinkChar.unit);
                 }
                 else if (choiceF)
                 {
-                    SetAnimsAndAudio(karObj, karAnim, "zombi", "atk", 0);
+                    SetAnimsAndAudio(zombiObj, zombiAnim, "Zombi", "atk", 0);
+                    yield return new WaitForSeconds(1f);
                     zombiChar.FifthSkill(pinkChar.unit);
                 }
                 enemyHUD.SetHP(pinkChar.unit.currentHP);
-
+                zombiObj.SetActive(true);
+                zombiAnim.SetActive(false);
+                animBackground.SetActive(false);
                 bool isDead = pinkChar.unit.ProcessDeath(pinkChar.unit);
                 if (isDead)
                 {
@@ -615,6 +696,12 @@ namespace Managers
                     state = BattleState.ENEMYTURN;
                     StartCoroutine(EnemyTurn()); 
                 }
+            }
+            else
+            {
+                // Enemy turn
+                state = BattleState.ENEMYTURN;
+                StartCoroutine(EnemyTurn()); 
             }
         }
 

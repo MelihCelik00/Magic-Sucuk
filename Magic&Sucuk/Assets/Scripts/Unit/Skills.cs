@@ -2,7 +2,7 @@
 
 namespace Unit
 {
-    public abstract class Skills : MonoBehaviour
+    public  class Skills : MonoBehaviour
     {
         
         // Physical Hit

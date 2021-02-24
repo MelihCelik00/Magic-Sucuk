@@ -17,33 +17,35 @@ namespace Unit
             playerHUD = GameObject.FindGameObjectWithTag("playerHUD").GetComponent<BattleHUD>();
             playerHUD.SetHUD(unit);
             _battleSystem = GameObject.FindGameObjectWithTag("battleManager").GetComponent<BattleSystem>();
+            _skills = this.gameObject.GetComponent<Skills>();
         }
 
-        public void FirstSkill()
+        public void Guard()
         {
-            Guard(unit);
+            _skills.Guard(unit);
         }
 
-        public void SecondSkill(Unit targetUnit)
+        public void WindStrike(Unit targetUnit)
         {
-            WindStrike(targetUnit, unit.magicDamage);
+            _skills.WindStrike(targetUnit,unit.magicDamage);
         }
 
-        public void ThirdSkill(Unit targetUnit)
+        public void StreamStrike(Unit targetUnit)
         {
-            StreamStrike(targetUnit, unit.magicDamage);
+            _skills.StreamStrike(targetUnit,unit.magicDamage);
         }
 
-        public void FourthSkill(Unit targetUnit)
+        public void Expose(Unit targetUnit)
         {
-            Expose(targetUnit);
+            
+            _skills.Expose(targetUnit);
         }
 
-        public void FifthSkill()
+        public void AtkBuff()
         {
-            AttackBuff(unit);
+            _skills.AttackBuff(unit);
         }
-        
+        /*
         public void Guard(Unit unit)
         {
             unit.CoefficientBuff();
@@ -68,6 +70,6 @@ namespace Unit
         public void AttackBuff(Unit unit)
         {
             unit.IncreaseAttackDmg();
-        }
+        }*/
     }
 }
