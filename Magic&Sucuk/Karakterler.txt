@@ -1,0 +1,91 @@
+1) Dengeli Boru
+Name: Hava-i
+Nation: Air Horn guy
+Health: 100
+Damage: 10
+Magic: 15
+Crit(%): 4
+Armor(çarpanlar):1
+Skills: Guard 
+        Rüzgar
+        Ceryan
+        Expose (Support Ofansif)
+        Atk Buff
+
+2)Tank Kılıç
+Name: Horsapien
+Nation: At Herif
+Health: 
+Damage: 
+Magic: 
+Crit(%):
+Armor(çarpanlar):2
+Skills: Guard
+        Darbe
+        Ceryan
+        Provoke (Support Ofansif)
+        Expose (Support Ofansif)
+
+3)Support 
+Name:Wholivesee
+Nation: Zombi Birey
+Health: 
+Damage: 
+Magic: 
+Crit(%):
+Armor(çarpanlar):3
+Skills: Guard
+        Heal
+        Zombi Istırığı
+        Su
+        Darbe
+
+4)Damage Pençe(elleri)
+Name: Karl Adams
+Nation: Kardan Adam ama tersten
+Health: 
+Damage: 
+Magic:  
+Crit(%):
+Armor(çarpanlar):4
+Skills: Guard
+        Rüzgar
+        Su
+        Investigate (Support Ofansif)
+        Crit Buff
+
+Boss) 
+Name: Pink Cloyd
+Nation: Psikopat Pembe Bulut(but Kawai)
+Health: 
+Damage: 
+Magic: 
+Crit(%):
+Armor(çarpanlar):
+Skills: Darbe
+        Su
+        Ceryan
+        Rüzgar
+        Crit Buff
+
+
+
+1) Enemy
+Name: 
+Nation: 
+Health: 
+Damage: 
+Magic: 
+Crit(%):
+Armor(çarpanlar):
+Skills: 
+
+2) Enemy
+Name: 
+Nation: 
+Health: 
+Damage: 
+Magic: 
+Crit(%):
+Armor(çarpanlar):
+Skills: 
