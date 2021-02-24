@@ -68,6 +68,9 @@
     <Compile Include="Assets\Scripts\Anim.cs" />
     <Compile Include="Assets\Scripts\Managers\BattleHUD.cs" />
     <Compile Include="Assets\Scripts\Managers\BattleSystem.cs" />
+    <Compile Include="Assets\Scripts\Menu\MainMenüOLD\Creditsquit.cs" />
+    <Compile Include="Assets\Scripts\Menu\MainMenüOLD\MainMenu.cs" />
+    <Compile Include="Assets\Scripts\Menu\MainMenüOLD\MenüAnim.cs" />
     <Compile Include="Assets\Scripts\Menu\Menu222.cs" />
     <Compile Include="Assets\Scripts\OrderMenu\secimsirasi.cs" />
     <Compile Include="Assets\Scripts\SAAT\MASADÖNGÜSÜ.cs" />
