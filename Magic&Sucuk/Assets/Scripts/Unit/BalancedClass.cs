@@ -3,17 +3,17 @@ using UnityEngine;
 
 namespace Unit
 {
-    public class BalancedClass : MonoBehaviour
+    public class BalancedClass : MonoBehaviour, Skills
     {
         public Unit unit;
         public BattleHUD playerHUD;
         private Skills _skills;
-
         private BattleSystem _battleSystem;
+ 
         private void Start()
         {
             unit = GameObject.FindGameObjectWithTag("havai").GetComponent<Unit>();
-            unit.SetUnit("Hava-i",0,15, 100, 100,3,1,1,2);
+            unit.SetUnit("Hava-i", 0, 15, 100, 100, 3, 1, 1, 2);
             playerHUD = GameObject.FindGameObjectWithTag("playerHUD").GetComponent<BattleHUD>();
             playerHUD.SetHUD(unit);
             _battleSystem = GameObject.FindGameObjectWithTag("battleManager").GetComponent<BattleSystem>();
@@ -27,17 +27,17 @@ namespace Unit
 
         public void WindStrike(Unit targetUnit)
         {
-            _skills.WindStrike(targetUnit,unit.magicDamage);
+            _skills.WindStrike(targetUnit, unit.magicDamage);
         }
 
         public void StreamStrike(Unit targetUnit)
         {
-            _skills.StreamStrike(targetUnit,unit.magicDamage);
+            _skills.StreamStrike(targetUnit, unit.magicDamage);
         }
 
         public void Expose(Unit targetUnit)
         {
-            
+
             _skills.Expose(targetUnit);
         }
 
