@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMenuOLD.unity
+    guid: 9b1c13e9305c66341b9d490d364f7187
+  - enabled: 1
+    path: Assets/Scenes/PinkBossBattle.unity
+    guid: 9cc821668cc7547eca90590cdd2b2009
   m_configObjects: {}

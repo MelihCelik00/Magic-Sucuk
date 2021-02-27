@@ -47,7 +47,7 @@ namespace Unit
         public bool ProcessDeath(Unit unit)
         {
             if (unit.currentHP <= 0){
-                Destroy(unit.gameObject);
+                //Destroy(unit.gameObject);
                 return true;
             }
             else

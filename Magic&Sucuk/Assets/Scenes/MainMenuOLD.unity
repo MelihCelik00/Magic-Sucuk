@@ -155,8 +155,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.7999878, y: 166.70001}
-  m_SizeDelta: {x: -532.2086, y: -511.9414}
+  m_AnchoredPosition: {x: -2.7999878, y: 96.00001}
+  m_SizeDelta: {x: -532.2086, y: -351.23743}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &152165192
 MonoBehaviour:
@@ -1594,8 +1594,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.8, y: 166.7}
-  m_SizeDelta: {x: 1387.7916, y: 568.05457}
+  m_AnchoredPosition: {x: -2.8, y: 96}
+  m_SizeDelta: {x: 1387.7916, y: 728.7626}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1830496356
 MonoBehaviour:
@@ -1618,7 +1618,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1629,7 +1629,13 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: BEN SEN O
+  m_Text: "Game Designer = Fuat Can ERY\u0130\u011E\u0130T\nProgrammers = Melih Safa
+    \xC7EL\u0130K, Yi\u011Fit \xD6ZYAMAN, Mahmut Selim \xC7OBAN,Fuat Can ERY\u0130\u011E\u0130T\n2D
+    Art = \xD6zge Selen BULGU, \xDClk\xFC Nur NAR\nAnimation = Yi\u011Fit \xD6ZYAMAN\nFoley
+    = Fuat Can ERY\u0130\u011E\u0130T\nMusic = Fuat Can ERY\u0130\u011E\u0130T\n\nVoice
+    of Wholivesee = Fuat Can ERY\u0130\u011E\u0130T\nVoice of Karl Adams = Fuat Can
+    ERY\u0130\u011E\u0130T\nVoice of Pink Cloyd = Yaren KURUY\n\nSpecial Thanks\nG\xF6rkem
+    K\xDCPEL\u0130\nM\xFCcahit MORCOL\n\n\n\n\n\n\n"
 --- !u!222 &1830496357
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1674,7 +1680,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 540, y: -59}
+  m_AnchoredPosition: {x: 540, y: -197}
   m_SizeDelta: {x: 197.19385, y: 67.19372}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1844867585

@@ -295,14 +295,15 @@ namespace Managers
                     str = "Zombi-Defans";
                 }
             }
-            else
+
+            if (atUsedProvoke && !atDead)
             {
                 randUnit = atChar.unit;
-                    randObj = atObj;
-                    randObj = GameObject.FindGameObjectWithTag(atObj.tag);
-                    randAnim = atAnim;
-                    playerHUD = GameObject.FindGameObjectWithTag("atHUD").GetComponent<BattleHUD>();
-                    str = "At-Defans";
+                randObj = atObj;
+                randObj = GameObject.FindGameObjectWithTag(atObj.tag);
+                randAnim = atAnim;
+                playerHUD = GameObject.FindGameObjectWithTag("atHUD").GetComponent<BattleHUD>();
+                str = "At-Defans";
             }
             
             randAnim.SetActive(true);
@@ -350,7 +351,7 @@ namespace Managers
             }
             else if (randomSkill == 5) // Guard
             {
-                pinkAnim.GetComponent<Animator>().SetTrigger("Pink-Defans");
+                pinkAnim.GetComponent<Animator>().SetTrigger("Pink-Destek");
                 
                 pinkChar.FifthSkill();
                 Debug.Log("5den cikti");
@@ -409,7 +410,11 @@ namespace Managers
         {
             if (state == BattleState.WON)
             {
+                //dialogueText.transform.parent.position = new Vector3(-291,-65,0);
                 dialogueText.text = "You won the battle!";
+                //dialogueText.fontSize = dialogueText.fontSize * 2;
+                //dialogueText.fontStyle = FontStyle.Bold;
+                pinkAnim.gameObject.SetActive(false);
             }
             else if (state == BattleState.LOST)
             {
@@ -626,7 +631,6 @@ namespace Managers
                     SetAnimsAndAudio(karObj, karAnim, "Kar", "atk", 0);
                     yield return new WaitForSeconds(1f);
                     karChar.SecondSkill(pinkChar.unit);
-                    Debug.Log("Second choice");
                 }
                 else if (choiceS)
                 {
@@ -709,10 +713,26 @@ namespace Managers
                     zombiUI.SetActive(false);
                     SetAnimsAndAudio(zombiObj, zombiAnim, "Zombi", "sup", 0);  
                     yield return new WaitForSeconds(1f);
-                    zombiChar.SecondSkill(atChar.unit);
-                    zombiChar.SecondSkill(karChar.unit);
-                    zombiChar.SecondSkill(kornaChar.unit);
-                    zombiChar.SecondSkill(zombiChar.unit);
+                    if (!zombiChar.unit.ProcessDeath(zombiChar.unit))
+                    {
+                        zombiChar.SecondSkill(zombiChar.unit);;
+                        zombiHUD.SetHUD(zombiChar.unit);
+                    }
+                    if (!zombiChar.unit.ProcessDeath(karChar.unit))
+                    {
+                        zombiChar.SecondSkill(karChar.unit);
+                        karHUD.SetHUD(karChar.unit);
+                    }
+                    if (!zombiChar.unit.ProcessDeath(kornaChar.unit))
+                    {
+                        zombiChar.SecondSkill(kornaChar.unit);
+                        kornaHUD.SetHUD(kornaChar.unit);
+                    }
+                    if (!zombiChar.unit.ProcessDeath(atChar.unit))
+                    {
+                        zombiChar.SecondSkill(atChar.unit);;
+                        atHUD.SetHUD(atChar.unit);
+                    }
                     Debug.Log("Second choice");
                 }
                 else if (choiceS)

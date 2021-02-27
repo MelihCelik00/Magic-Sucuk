@@ -11,34 +11,34 @@ namespace Unit
         public void PhysicalStrike(Unit targetUnit, Unit unit) // Target Unit, base damage points
         {
             if (CalculateCritProbability(unit))
-                unit.TakeDamage(unit.damage * targetUnit.strikeCoefficient * unit.critDamage);
+                targetUnit.TakeDamage(unit.damage * targetUnit.strikeCoefficient * unit.critDamage);
             else
-                unit.TakeDamage(unit.damage*targetUnit.strikeCoefficient);
+                targetUnit.TakeDamage(unit.damage*targetUnit.strikeCoefficient);
         }
         
         // Magical Damages
         public void WaterStrike(Unit targetUnit, Unit unit)
         {
             if (CalculateCritProbability(unit))
-                unit.TakeDamage(unit.magicDamage * targetUnit.strikeCoefficient * unit.critDamage);
+                targetUnit.TakeDamage(unit.magicDamage * targetUnit.strikeCoefficient * unit.critDamage);
             else
-                unit.TakeDamage(unit.magicDamage * unit.waterCoefficient);
+                targetUnit.TakeDamage(unit.magicDamage * unit.waterCoefficient);
         }
-
+        
         public void WindStrike(Unit targetUnit, Unit unit)
         {
             if (CalculateCritProbability(unit))
-                unit.TakeDamage(unit.magicDamage * targetUnit.strikeCoefficient * unit.critDamage);
+                targetUnit.TakeDamage(unit.magicDamage * targetUnit.strikeCoefficient * unit.critDamage);
             else
-                unit.TakeDamage(unit.magicDamage * unit.windCoefficient);
+                targetUnit.TakeDamage(unit.magicDamage * unit.windCoefficient);
         }
 
         public void StreamStrike(Unit targetUnit, Unit unit)
         {
             if (CalculateCritProbability(unit))
-                unit.TakeDamage(unit.magicDamage * targetUnit.strikeCoefficient * unit.critDamage);
+                targetUnit.TakeDamage(unit.magicDamage * targetUnit.strikeCoefficient * unit.critDamage);
             else
-                unit.TakeDamage(unit.magicDamage * unit.streamCoefficient);
+                targetUnit.TakeDamage(unit.magicDamage * unit.streamCoefficient);
         }
         
         // Deffensive
