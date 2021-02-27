@@ -37,12 +37,20 @@ namespace Managers
 
         public Text dialogueText;
 
-        public BattleHUD playerHUD;
+        // HUDs
         public BattleHUD enemyHUD;
+        public BattleHUD kornaHUD;
+        public BattleHUD atHUD;
+        public BattleHUD karHUD;
+        public BattleHUD zombiHUD;
+        
+        // Skill UIs
+        public GameObject kornaUI;
+        public GameObject atUI;
+        public GameObject karUI;
+        public GameObject zombiUI;
         
         public BattleState state;
-
-        public Unit.Skills skills;
 
         private bool choiceTime;
 
@@ -51,12 +59,20 @@ namespace Managers
         public GameObject zombiAnim;
         public GameObject kornaAnim;
         public GameObject pinkAnim;
+
+        private bool kornaGuardUsed;
+        private bool atGuardUsed;
+        private bool zombiGuardUsed;
+        private bool karGuardUsed;
+        private bool firstTurnPassed;
         
         private bool choiceA;
         private bool choiceS;
         private bool choiceD;
         private bool choiceF;
         private bool choiceSpace;
+
+        private bool atUsedProvoke;
 
         public bool kornaDead, karDead, zombiDead, atDead, isDead;
 
@@ -185,13 +201,20 @@ namespace Managers
             zombiObj = Instantiate(zombiPrefab, playerBattleStation4);
             zombiChar = zombiObj.GetComponent<SupportClass>(); // Class değişecek
                 
-            skills = GetComponent<Skills>();
+            //skills = GetComponent<Skills>();
+            
+            kornaHUD = GameObject.FindGameObjectWithTag("kornaHUD").GetComponent<BattleHUD>();
+            atHUD  = GameObject.FindGameObjectWithTag("atHUD").GetComponent<BattleHUD>();
+            karHUD  = GameObject.FindGameObjectWithTag("karHUD").GetComponent<BattleHUD>();
+            zombiHUD  = GameObject.FindGameObjectWithTag("zombiHUD").GetComponent<BattleHUD>();
 
+            // kornaUI = GameObject.FindGameObjectWithTag("kornaSkillUI");
+            // atUI = GameObject.FindGameObjectWithTag("atSkillUI");
+            // karUI = GameObject.FindGameObjectWithTag("karSkillUI");
+            // zombiUI = GameObject.FindGameObjectWithTag("zombiSkillUI");
+            
             dialogueText.text = "A wild " + pinkChar.unit.unitName + " approaches...";
             
-            //playerHUD.SetHUD(playerUnit);
-            //enemyHUD.SetHUD(enemyUnit);
-
             yield return new WaitForSeconds(2f);
             Debug.Log("First player: " + kornaChar.unit.unitName);
             Debug.Log("Second player: " + atChar.unit.unitName);
@@ -199,45 +222,6 @@ namespace Managers
             Debug.Log("Fourth player: " + zombiChar.unit.unitName);
             state = BattleState.FIRST_PLAYERTURN;
             StartCoroutine(KornaTurn());
-        }
-
-        IEnumerator PlayerAttack()
-        {
-            // Damage the enemy
-            bool isDead = pinkChar.unit.TakeDamage(kornaChar.unit.damage);
-            
-            enemyHUD.SetHP(pinkChar.unit.currentHP);
-            dialogueText.text = "The attack is successful!";
-                
-            yield return new WaitForSeconds(2f);
-            
-            // Check if the enemy is dead
-            if (isDead)
-            {
-                // End battle
-                state = BattleState.WON;
-                EndBattle();
-            }
-            else
-            {
-                // Enemy turn
-                state = BattleState.ENEMYTURN;
-                StartCoroutine(EnemyTurn());
-            }
-            //Change state based on what happened
-        }
-
-        IEnumerator PlayerHeal()
-        {
-            kornaChar.unit.Heal(5);
-            playerHUD.SetHP(kornaChar.unit.currentHP);
-            dialogueText.text = "You feel renewed strength!";
-            
-            yield return new WaitForSeconds(2f);
-
-            state = BattleState.ENEMYTURN;
-            StartCoroutine(EnemyTurn());
-
         }
 
         IEnumerator EnemyTurn()
@@ -249,6 +233,7 @@ namespace Managers
             Unit.Unit randUnit = null;
             GameObject randObj = null;
             GameObject randAnim = null;
+            BattleHUD playerHUD = null;
             String str = null;
             int toWhom = Random.Range(1, 4);
             
@@ -271,38 +256,55 @@ namespace Managers
                 toWhom = 1;
             }
 
-            if (toWhom == 1)
+            if (!atUsedProvoke)
             {
-                randUnit = kornaChar.unit;
-                randObj = kornaObj;
-                randObj = GameObject.FindGameObjectWithTag(kornaObj.tag);
-                randAnim = kornaAnim;
-                str = "Korna-Defans";
+                if (toWhom == 1)
+                {
+                    randUnit = kornaChar.unit;
+                    randObj = kornaObj;
+                    randObj = GameObject.FindGameObjectWithTag(kornaObj.tag);
+                    randAnim = kornaAnim;
+                    playerHUD = GameObject.FindGameObjectWithTag("kornaHUD").GetComponent<BattleHUD>();
+                    str = "Korna-Defans";
+                }
+                else if (toWhom == 2)
+                {
+                    randUnit = atChar.unit;
+                    randObj = atObj;
+                    randObj = GameObject.FindGameObjectWithTag(atObj.tag);
+                    randAnim = atAnim;
+                    playerHUD = GameObject.FindGameObjectWithTag("atHUD").GetComponent<BattleHUD>();
+                    str = "At-Defans";
+                }
+                else if (toWhom == 3)
+                {
+                    randUnit = karChar.unit;
+                    randObj = karObj;
+                    randObj = GameObject.FindGameObjectWithTag(karObj.tag);
+                    randAnim = karAnim;
+                    playerHUD = GameObject.FindGameObjectWithTag("karHUD").GetComponent<BattleHUD>();
+                    str = "Kar-Defans";
+                }
+                else if (toWhom == 4)
+                {
+                    randUnit = zombiChar.unit;
+                    randObj = zombiObj;
+                    randObj = GameObject.FindGameObjectWithTag(zombiObj.tag);
+                    randAnim = zombiAnim;
+                    playerHUD = GameObject.FindGameObjectWithTag("zombiHUD").GetComponent<BattleHUD>();
+                    str = "Zombi-Defans";
+                }
             }
-            else if (toWhom == 2)
+            else
             {
                 randUnit = atChar.unit;
-                randObj = atObj;
-                randObj = GameObject.FindGameObjectWithTag(atObj.tag);
-                randAnim = atAnim;
-                str = "At-Defans";
+                    randObj = atObj;
+                    randObj = GameObject.FindGameObjectWithTag(atObj.tag);
+                    randAnim = atAnim;
+                    playerHUD = GameObject.FindGameObjectWithTag("atHUD").GetComponent<BattleHUD>();
+                    str = "At-Defans";
             }
-            else if (toWhom == 3)
-            {
-                randUnit = karChar.unit;
-                randObj = karObj;
-                randObj = GameObject.FindGameObjectWithTag(karObj.tag);
-                randAnim = karAnim;
-                str = "Kar-Defans";
-            }
-            else if (toWhom == 4)
-            {
-                randUnit = zombiChar.unit;
-                randObj = zombiObj;
-                randObj = GameObject.FindGameObjectWithTag(zombiObj.tag);
-                randAnim = zombiAnim;
-                str = "Zombi-Defans";
-            }
+            
             randAnim.SetActive(true);
             Debug.Log(randUnit);
             // Roll a random enemy
@@ -385,8 +387,7 @@ namespace Managers
             randAnim.SetActive(false);
             animBackground.SetActive(false);
             playerHUD.SetHUD(randUnit);
-            //playerHUD.SetHP(firstPlayer.unit.currentHP);
-            
+            atUsedProvoke = false;
             yield return new WaitForSeconds(2f);
 
             if (atDead && kornaDead && zombiDead && karDead)
@@ -419,15 +420,23 @@ namespace Managers
         IEnumerator KornaTurn() /////////
         {
             dialogueText.text = "Choose an action for " + kornaChar.unit.unitName;
-            playerHUD.SetHUD(kornaChar.unit);
+            kornaHUD.SetHUD(kornaChar.unit);
             if (state == BattleState.FIRST_PLAYERTURN && !kornaDead )
             {
                 kornaAnim.SetActive(true);
                 kornaObj.SetActive(false);
+                yield return new WaitForSeconds(0.3f);
+                kornaUI.SetActive(true);
                 choiceTime = true;
                 Debug.Log("SEÇ");
                 
                 // Skill UI acilsin
+
+                if (kornaGuardUsed)
+                {
+                    kornaChar.unit.CoefficientNerf();
+                    kornaGuardUsed = false;
+                }
                 
                 while (choiceTime)
                 {
@@ -436,11 +445,14 @@ namespace Managers
                 
                 if (choiceSpace)
                 {
+                    kornaUI.SetActive(false);
                     SetAnimsAndAudio(kornaObj,kornaAnim,"Korna","g",0);
                     kornaChar.Guard();
+                    kornaGuardUsed = true;
                 }
                 else if (choiceA)
                 {
+                    kornaUI.SetActive(false);
                     SetAnimsAndAudio(kornaObj,kornaAnim,"Korna","atk",0);
                     kornaChar.WindStrike(pinkChar.unit);
                     yield return new WaitForSeconds(1f);
@@ -448,18 +460,21 @@ namespace Managers
                 }
                 else if (choiceS)
                 {
+                    kornaUI.SetActive(false);
                     SetAnimsAndAudio(kornaObj,kornaAnim,"Korna","atk",0);
                     kornaChar.StreamStrike(pinkChar.unit);
                     yield return new WaitForSeconds(1f);
                 }
                 else if (choiceD)
                 {
+                    kornaUI.SetActive(false);
                     SetAnimsAndAudio(kornaObj,kornaAnim,"Korna","osup",0);
                     kornaChar.Expose(pinkChar.unit);
                     yield return new WaitForSeconds(1f);
                 }
                 else if (choiceF)
                 {
+                    kornaUI.SetActive(false);
                     // Destek anim
                     SetAnimsAndAudio(kornaObj,kornaAnim,"Korna","sup",0);
                     kornaChar.AtkBuff();
@@ -493,15 +508,23 @@ namespace Managers
         {
             //GameObject backUI = GameObject.FindGameObjectWithTag("atSkillUI");
             dialogueText.text = atChar.unit.unitName + " attacks!";
-            playerHUD.SetHUD(atChar.unit);
+            atHUD.SetHUD(atChar.unit);
             yield return new WaitForSeconds(1);
             if (state == BattleState.SECOND_PLAYERTURN && !atDead)
             {
                 atAnim.SetActive(true);
                 atObj.SetActive(false);
-
+                yield return new WaitForSeconds(0.3f);
+                atUI.SetActive(true);
                 choiceTime = true;
                 Debug.Log("SEÇ");
+                
+                if (atGuardUsed)
+                {
+                    atChar.unit.CoefficientNerf();
+                    atGuardUsed = false;
+                }
+
 
                 while (choiceTime)
                 {
@@ -509,29 +532,35 @@ namespace Managers
                 }
                 if (choiceSpace) // Guard
                 {
+                    atUI.SetActive(false);
                     SetAnimsAndAudio(atObj,atAnim,"At","g",0);
                     atChar.FirstSkill();
+                    atGuardUsed = true;
                 }
                 else if (choiceA) // physical strike
                 {
+                    atUI.SetActive(false);
                     SetAnimsAndAudio(atObj,atAnim,"At","atk",0);
                     yield return new WaitForSeconds(1f);
                     atChar.SecondSkill(pinkChar.unit);
                 }
-                else if (choiceS) // stream strike
+                else if (choiceS) // attack buff
                 {
-                    SetAnimsAndAudio(atObj,atAnim,"At","atk",0);
+                    atUI.SetActive(false);
+                    SetAnimsAndAudio(atObj,atAnim,"At","osup",0);
                     yield return new WaitForSeconds(1f);
-                    atChar.ThirdSkill(pinkChar.unit);
+                    atChar.ThirdSkill(atChar.unit);
                 }
                 else if (choiceD) // provoke
                 {
+                    atUI.SetActive(false);
                     SetAnimsAndAudio(atObj,atAnim,"At","osup",0);
                     yield return new WaitForSeconds(1f);
-                    atChar.FourthSkill();
+                    atUsedProvoke = atChar.FourthSkill();
                 }
                 else if (choiceF) // expose
                 {
+                    atUI.SetActive(false);
                     SetAnimsAndAudio(atObj,atAnim,"At","osup",0);
                     yield return new WaitForSeconds(1f);
                     atChar.FifthSkill();
@@ -564,15 +593,22 @@ namespace Managers
         IEnumerator KarTurn()
         {
             dialogueText.text = karChar.unit.unitName + " attacks!";
-            playerHUD.SetHUD(karChar.unit);
+            karHUD.SetHUD(karChar.unit);
             yield return new WaitForSeconds(1);
             if (state == BattleState.THIRD_PLAYERTURN && !karDead)
             { 
                 karAnim.SetActive(true);
                 karObj.SetActive(false);
-
+                yield return new WaitForSeconds(0.3f);
+                karUI.SetActive(true);
                 choiceTime = true;
                 Debug.Log("SEÇ");
+
+                if (karGuardUsed)
+                {
+                    karChar.unit.CoefficientNerf();
+                    karGuardUsed = false;
+                }
 
                 while (choiceTime)
                 {
@@ -580,11 +616,13 @@ namespace Managers
                 }
                 if (choiceSpace) 
                 {
+                    karUI.SetActive(false);
                     SetAnimsAndAudio(karObj, karAnim, "Kar", "g", 0);  //g=guard, atk, osup=provoke,expose,invetigate, sup= heal,crit chance.... 
                     karChar.FirstSkill();
                 }
                 else if (choiceA)
                 {
+                    karUI.SetActive(false);
                     SetAnimsAndAudio(karObj, karAnim, "Kar", "atk", 0);
                     yield return new WaitForSeconds(1f);
                     karChar.SecondSkill(pinkChar.unit);
@@ -592,18 +630,21 @@ namespace Managers
                 }
                 else if (choiceS)
                 {
+                    karUI.SetActive(false);
                     SetAnimsAndAudio(karObj, karAnim, "Kar", "atk", 0); 
                     yield return new WaitForSeconds(1f);
                     karChar.ThirdSkill(pinkChar.unit);
                 }
                 else if (choiceD)
                 {
+                    karUI.SetActive(false);
                     SetAnimsAndAudio(karObj, karAnim, "Kar", "osup", 0); 
                     yield return new WaitForSeconds(1f);
                     karChar.FourthSkill();
                 }
                 else if (choiceF)
                 {
+                    karUI.SetActive(false);
                     SetAnimsAndAudio(karObj, karAnim, "Kar", "sup", 0);
                     yield return new WaitForSeconds(1f);
                     karChar.FifthSkill();
@@ -635,7 +676,7 @@ namespace Managers
         IEnumerator ZombiTurn()
         {
             dialogueText.text = zombiChar.unit.unitName + " attacks!";
-            playerHUD.SetHUD(zombiChar.unit);
+            zombiHUD.SetHUD(zombiChar.unit);
             yield return new WaitForSeconds(1);
             if (state == BattleState.FOURTHPLAYER_TURN && !zombiDead)
             {
@@ -643,6 +684,14 @@ namespace Managers
                 zombiObj.SetActive(false);
                 choiceTime = true;
                 Debug.Log("SEÇ");
+                yield return new WaitForSeconds(0.3f);
+                zombiUI.SetActive(true);
+                
+                if (zombiGuardUsed)
+                {
+                    zombiChar.unit.CoefficientNerf();
+                    zombiGuardUsed = false;
+                }
 
                 while (choiceTime)
                 {
@@ -650,31 +699,39 @@ namespace Managers
                 }
                 if (choiceSpace)
                 {
+                    zombiUI.SetActive(false);
                     SetAnimsAndAudio(zombiObj, zombiAnim, "Zombi", "g", 0);  //g=guard, atk, osup=provoke,expose,invetigate, sup= heal,crit chance.... 
                     yield return new WaitForSeconds(1f);
                     zombiChar.FirstSkill();
                 }
                 else if (choiceA)
                 {
+                    zombiUI.SetActive(false);
                     SetAnimsAndAudio(zombiObj, zombiAnim, "Zombi", "sup", 0);  
                     yield return new WaitForSeconds(1f);
-                    zombiChar.SecondSkill(pinkChar.unit);
+                    zombiChar.SecondSkill(atChar.unit);
+                    zombiChar.SecondSkill(karChar.unit);
+                    zombiChar.SecondSkill(kornaChar.unit);
+                    zombiChar.SecondSkill(zombiChar.unit);
                     Debug.Log("Second choice");
                 }
                 else if (choiceS)
                 {
+                    zombiUI.SetActive(false);
                     SetAnimsAndAudio(zombiObj, zombiAnim, "Zombi", "sup", 0);
                     yield return new WaitForSeconds(1f);
                     zombiChar.ThirdSkill(pinkChar.unit);
                 }
                 else if (choiceD)
                 {
+                    zombiUI.SetActive(false);
                     SetAnimsAndAudio(zombiObj, zombiAnim, "Zombi", "atk", 0);
                     yield return new WaitForSeconds(1f);
                     zombiChar.FourthSkill(pinkChar.unit);
                 }
                 else if (choiceF)
                 {
+                    zombiUI.SetActive(false);
                     SetAnimsAndAudio(zombiObj, zombiAnim, "Zombi", "atk", 0);
                     yield return new WaitForSeconds(1f);
                     zombiChar.FifthSkill(pinkChar.unit);

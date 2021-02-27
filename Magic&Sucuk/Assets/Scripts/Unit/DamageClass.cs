@@ -7,66 +7,45 @@ namespace Unit
     {
         public Unit unit;
         public BattleHUD playerHUD;
-        private Skills _skills;
+        public Skills _skills;
 
         private BattleSystem _battleSystem;
         private void Start()
         {
             unit = GameObject.FindGameObjectWithTag("kardanadam").GetComponent<Unit>();
-            unit.SetUnit("Karl Adams", 12, 30, 60, 60, 2, 1, 1, 3);
-            playerHUD = GameObject.FindGameObjectWithTag("playerHUD").GetComponent<BattleHUD>();
+            unit.SetUnit("Karl Adams", 12, 30, 60, 60, 2, 1, 1, 3,9);
+            playerHUD = GameObject.FindGameObjectWithTag("karHUD").GetComponent<BattleHUD>();
             playerHUD.SetHUD(unit);
             //_skills = GameObject.FindGameObjectWithTag("battleManager").GetComponent<Skills>();
             _battleSystem = GameObject.FindGameObjectWithTag("battleManager").GetComponent<BattleSystem>();
+            _skills = this.gameObject.GetComponent<Skills>();
         }
 
         public void FirstSkill()
         {
-            Guard(unit);
+            _skills.Guard(unit);
         }
 
         public void SecondSkill(Unit targetUnit)
         {
             Debug.Log(targetUnit.unitName);
-            WindStrike(targetUnit, unit.magicDamage);
+            _skills.WindStrike(targetUnit, unit);
         }
 
         public void ThirdSkill(Unit targetUnit)
         {
-            WaterStrike(targetUnit, unit.magicDamage);
+            _skills.WaterStrike(targetUnit, unit);
         }
 
         public void FourthSkill()
         {
-            Investigate(unit);
+            _skills.Investigate(unit);
         }
 
         public void FifthSkill()
         {
-            AttackBuff(unit);
+            _skills.CritBuff(unit);
         }
-
-        public void Guard(Unit unit)
-        {
-            unit.CoefficientBuff();
-        }
-        public void WindStrike(Unit unit, int magicDmg)
-        {
-            Debug.Log("Winde geldi");
-            unit.TakeDamage(magicDmg * unit.windCoefficient);
-        }
-        public void WaterStrike(Unit unit, int magicDmg)
-        {
-            unit.TakeDamage(magicDmg * unit.waterCoefficient);
-        }
-        public void Investigate(Unit unit)
-        {
-            // Dialog paneline bastır
-
-        }
-        public void AttackBuff(Unit unit)
-        {
-            unit.IncreaseAttackDmg();
-        }
+        
     }
 }

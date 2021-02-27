@@ -113,6 +113,7 @@ GameObject:
   - component: {fileID: 4053350459656084007}
   - component: {fileID: 4053350459656084006}
   - component: {fileID: 3679622149227556881}
+  - component: {fileID: -2373549530072506893}
   m_Layer: 0
   m_Name: At
   m_TagString: horsapien
@@ -157,7 +158,8 @@ MonoBehaviour:
   maxHP: 0
   currentHP: 0
   backUI: {fileID: 0}
-  crit: 0
+  critPercentage: 0
+  critDamage: 3
 --- !u!114 &4053350459656084006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,6 +174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unit: {fileID: 4053350459656084007}
   playerHUD: {fileID: 0}
+  _skills: {fileID: 0}
 --- !u!95 &3679622149227556881
 Animator:
   serializedVersion: 3
@@ -191,3 +194,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-2373549530072506893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4053350459656084005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b340d690049124df1abd51e37aa7a405, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

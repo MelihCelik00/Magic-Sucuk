@@ -19,7 +19,8 @@ namespace Unit
 
         public GameObject backUI;
 
-        public int crit;
+        public int critPercentage;
+        public int critDamage = 3;
 
         public bool TakeDamage(int dmg)
         {
@@ -53,7 +54,7 @@ namespace Unit
                 return false;
         }
 
-        public void SetUnit(string name, int dmg, int magicDmg, int maxHp, int currHp,int strikec, int waterc, int streamc, int windc)
+        public void SetUnit(string name, int dmg, int magicDmg, int maxHp, int currHp,int strikec, int waterc, int streamc, int windc, int critP)
         {
             unitName = name;
             damage = dmg;
@@ -66,6 +67,8 @@ namespace Unit
         
             maxHP = maxHp;
             currentHP = currHp;
+
+            critPercentage = critP;
         }
 
         public void CoefficientBuff()
@@ -88,7 +91,7 @@ namespace Unit
         public void SetCrit()
         {
             // for two rounds
-            crit *= 2;
+            critPercentage *= 3;
         }
 
         public void IncreaseAttackDmg()

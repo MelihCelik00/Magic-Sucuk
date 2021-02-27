@@ -112,6 +112,7 @@ GameObject:
   - component: {fileID: 6667136915511181259}
   - component: {fileID: 9002208722671141154}
   - component: {fileID: 9002208722671141155}
+  - component: {fileID: 7842068442845171350}
   m_Layer: 0
   m_Name: Kar
   m_TagString: kardanadam
@@ -171,3 +172,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unit: {fileID: 9002208722671141154}
   playerHUD: {fileID: 0}
+--- !u!114 &7842068442845171350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9002208722671141156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b340d690049124df1abd51e37aa7a405, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
